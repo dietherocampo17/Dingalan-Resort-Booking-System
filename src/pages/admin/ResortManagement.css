@@ -1,0 +1,151 @@
+.resort-management {
+    --background: #1a1a2e;
+}
+
+.page-header {
+    padding: 24px 16px;
+    color: white;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+}
+
+.page-header p {
+    margin: 0;
+    opacity: 0.7;
+}
+
+ion-searchbar {
+    --background: #252542;
+    --color: white;
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    margin: 0 16px 16px;
+}
+
+.resorts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 0 16px 80px;
+}
+
+.resort-card {
+    background: #252542;
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 0;
+}
+
+.resort-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.resort-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+}
+
+.resort-card h3 {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.resort-card .location {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 8px;
+}
+
+.resort-card .rating {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+}
+
+.resort-card .price-range {
+    color: #38ef7d;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.resort-card .amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.resort-card .amenities ion-chip {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    font-size: 0.7rem;
+    height: 24px;
+}
+
+.card-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.card-actions ion-button {
+    --border-radius: 8px;
+}
+
+ion-fab-button {
+    --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Edit Modal */
+.edit-modal-content {
+    --background: #1a1a2e;
+}
+
+.form-section {
+    padding: 16px;
+    margin-bottom: 8px;
+}
+
+.form-section h3 {
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-section ion-list {
+    background: #252542;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.form-section ion-item {
+    --background: transparent;
+    --color: white;
+}
+
+.form-section ion-label {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.form-section ion-input,
+.form-section ion-textarea,
+.form-section ion-select {
+    --color: white;
+    --placeholder-color: rgba(255, 255, 255, 0.4);
+}

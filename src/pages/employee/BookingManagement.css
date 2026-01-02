@@ -1,0 +1,134 @@
+.booking-management {
+    --background: #f5f7fa;
+}
+
+.management-header {
+    background: white;
+    padding: 16px 16px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.management-header ion-segment {
+    margin-bottom: 0;
+}
+
+/* Booking List */
+.booking-list {
+    background: transparent;
+    padding: 16px;
+}
+
+.booking-item {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    --padding-start: 12px;
+    --inner-padding-end: 8px;
+}
+
+.booking-item ion-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.booking-item h3 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin: 0 0 4px;
+}
+
+.booking-item p {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.booking-dates {
+    color: #3498db !important;
+}
+
+.item-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.item-end ion-badge {
+    text-transform: capitalize;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+/* Modal */
+.booking-details-modal {
+    --background: #f5f7fa;
+}
+
+.booking-details-modal ion-card {
+    margin: 16px;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.booking-details-modal ion-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.booking-details-modal ion-card h2 {
+    font-size: 1.2rem;
+    margin: 0 0 4px;
+}
+
+.booking-details-modal ion-card p {
+    color: #666;
+    margin: 0 0 12px;
+}
+
+.details-section {
+    background: white;
+    margin: 16px;
+    padding: 16px;
+    border-radius: 16px;
+}
+
+.details-section h3 {
+    font-size: 1rem;
+    margin: 0 0 16px;
+    color: #1a1a2e;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row span {
+    color: #666;
+}
+
+.action-buttons {
+    padding: 16px;
+}
+
+.action-buttons ion-button {
+    --border-radius: 12px;
+    height: 50px;
+}

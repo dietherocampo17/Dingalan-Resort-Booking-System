@@ -1,0 +1,91 @@
+.payment-management {
+    --background: #1a1a2e;
+}
+
+.page-header {
+    padding: 24px 16px;
+    color: white;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+}
+
+.page-header p {
+    margin: 0;
+    opacity: 0.7;
+}
+
+.stats-row {
+    display: flex;
+    gap: 16px;
+    padding: 0 16px;
+}
+
+.stat-card {
+    flex: 1;
+    background: #252542;
+    border-radius: 12px;
+    margin: 0;
+}
+
+.stat-card ion-card-content {
+    text-align: center;
+}
+
+.stat-card .value {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #38ef7d;
+}
+
+.stat-card .label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.payments-card {
+    margin: 16px;
+    background: #252542;
+    border-radius: 16px;
+}
+
+.payments-card ion-card-title {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.payments-card ion-list {
+    background: transparent;
+}
+
+.payment-item {
+    --background: transparent;
+    --color: white;
+    margin-bottom: 12px;
+}
+
+.payment-item h3 {
+    color: white;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.payment-item p {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+.payment-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.payment-end .amount {
+    color: #38ef7d;
+    font-weight: 600;
+}

@@ -1,0 +1,68 @@
+.guest-management {
+    --background: #f5f7fa;
+}
+
+.page-header {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    padding: 24px 16px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.page-header h1 {
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.page-header ion-button {
+    --background: rgba(255, 255, 255, 0.2);
+}
+
+.guest-list {
+    padding: 16px;
+    background: transparent;
+}
+
+.guest-item {
+    background: white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    --padding-start: 12px;
+}
+
+.guest-item ion-avatar {
+    width: 50px;
+    height: 50px;
+}
+
+.guest-item h3 {
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.guest-item p {
+    color: #666;
+    font-size: 0.85rem;
+    margin: 2px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.guest-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.guest-stats span {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.guest-stats ion-badge {
+    text-transform: capitalize;
+}

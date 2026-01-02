@@ -1,0 +1,79 @@
+.all-bookings {
+    --background: #1a1a2e;
+}
+
+.page-header {
+    padding: 24px 16px;
+    color: white;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+}
+
+.page-header p {
+    margin: 0;
+    opacity: 0.7;
+}
+
+ion-searchbar {
+    --background: #252542;
+    --color: white;
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    margin: 0 16px;
+}
+
+.status-segment {
+    --background: #252542;
+    margin: 16px;
+    border-radius: 8px;
+}
+
+.status-segment ion-segment-button {
+    --color: rgba(255, 255, 255, 0.7);
+    --color-checked: white;
+}
+
+.booking-list {
+    padding: 0 16px 16px;
+    background: transparent;
+}
+
+.booking-item {
+    --background: #252542;
+    --color: white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.booking-item h3 {
+    color: white;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.booking-item p {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 2px 0;
+}
+
+.booking-item .dates {
+    color: #667eea;
+}
+
+.booking-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.booking-end .amount {
+    color: #38ef7d;
+    font-weight: 600;
+}
+
+.booking-end ion-badge {
+    text-transform: capitalize;
+}

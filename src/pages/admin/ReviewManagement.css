@@ -1,0 +1,65 @@
+.review-management {
+    --background: #1a1a2e;
+}
+
+.page-header {
+    padding: 24px 16px;
+    color: white;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+}
+
+.page-header p {
+    margin: 0;
+    opacity: 0.7;
+}
+
+.review-list {
+    padding: 0 16px;
+    background: transparent;
+}
+
+.review-item {
+    --background: #252542;
+    --color: white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+}
+
+.review-item h3 {
+    color: white;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.review-item .resort {
+    color: #667eea;
+    margin: 0 0 8px;
+}
+
+.review-item .rating {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 8px;
+}
+
+.review-item .comment {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0 0 8px;
+    line-height: 1.4;
+}
+
+.review-item .date {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    margin: 0;
+}
+
+.review-actions {
+    display: flex;
+    flex-direction: column;
+}

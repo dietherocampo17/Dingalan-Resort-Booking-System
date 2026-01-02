@@ -1,0 +1,64 @@
+.employee-management {
+    --background: #1a1a2e;
+}
+
+.page-header {
+    padding: 24px 16px;
+    color: white;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+}
+
+.page-header p {
+    margin: 0;
+    opacity: 0.7;
+}
+
+ion-searchbar {
+    --background: #252542;
+    --color: white;
+    --placeholder-color: rgba(255, 255, 255, 0.5);
+    margin: 0 16px 16px;
+}
+
+.employee-list {
+    padding: 0 16px;
+    background: transparent;
+}
+
+.employee-item {
+    --background: #252542;
+    --color: white;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+.employee-item h3 {
+    color: white;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.employee-item p {
+    color: rgba(255, 255, 255, 0.7);
+    margin: 2px 0;
+}
+
+.employee-item .role {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.employee-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+ion-fab-button {
+    --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}

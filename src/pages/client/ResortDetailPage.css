@@ -1,0 +1,313 @@
+.resort-detail-content {
+    --background: #f5f7fa;
+}
+
+/* Image Gallery */
+.image-gallery {
+    position: relative;
+}
+
+.main-image {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+}
+
+.image-thumbnails {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    overflow-x: auto;
+    background: white;
+}
+
+.thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.thumbnail.active {
+    opacity: 1;
+    border: 2px solid #667eea;
+}
+
+.verified-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    --background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+}
+
+/* Resort Info */
+.resort-info {
+    background: white;
+    padding: 20px 16px;
+    margin-bottom: 12px;
+}
+
+.resort-info h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin: 0 0 12px;
+}
+
+.location-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #666;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 600;
+}
+
+.rating .review-count {
+    color: #999;
+    font-weight: 400;
+}
+
+.description {
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Sections */
+.section {
+    background: white;
+    padding: 20px 16px;
+    margin-bottom: 12px;
+}
+
+.section h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 16px;
+}
+
+/* Amenities */
+.amenities-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Policies */
+.policies-section ion-list {
+    background: transparent;
+}
+
+.policies-section ion-item {
+    --background: transparent;
+    --padding-start: 0;
+}
+
+.rules {
+    margin-top: 16px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+}
+
+.rules h4 {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    color: #1a1a2e;
+}
+
+.rules ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.rules li {
+    color: #555;
+    margin-bottom: 6px;
+}
+
+/* Segment */
+ion-segment {
+    background: white;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
+
+/* Rooms */
+.rooms-section {
+    padding: 0 16px 100px;
+}
+
+.room-card {
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.room-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.room-card ion-card-title {
+    font-size: 1.2rem;
+}
+
+.room-description {
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.room-details {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 12px;
+    color: #555;
+}
+
+.room-details span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.room-amenities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.inclusions {
+    margin-bottom: 16px;
+}
+
+.inclusions h5 {
+    font-size: 0.9rem;
+    color: #1a1a2e;
+    margin: 0 0 8px;
+}
+
+.inclusions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.inclusions li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.room-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 16px;
+    border-top: 1px solid #eee;
+}
+
+.room-footer .price .amount {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.room-footer .price .per {
+    color: #666;
+}
+
+.room-footer ion-button {
+    --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --border-radius: 25px;
+    height: 44px;
+    font-weight: 600;
+}
+
+/* Reviews */
+.reviews-section {
+    padding: 0 16px 100px;
+}
+
+.no-reviews {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.review-card {
+    background: white;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.review-header ion-avatar {
+    width: 44px;
+    height: 44px;
+}
+
+.review-meta {
+    flex: 1;
+}
+
+.review-meta h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #1a1a2e;
+}
+
+.review-meta .date {
+    color: #999;
+    font-size: 0.8rem;
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #fff8e1;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.review-comment {
+    color: #555;
+    line-height: 1.5;
+    margin: 0;
+}

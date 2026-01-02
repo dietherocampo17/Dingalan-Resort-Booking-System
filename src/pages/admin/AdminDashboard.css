@@ -1,0 +1,187 @@
+.admin-dashboard {
+    --background: #1a1a2e;
+}
+
+.dashboard-header {
+    padding: 24px 16px;
+    color: white;
+}
+
+.dashboard-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+}
+
+.dashboard-header p {
+    margin: 0;
+    opacity: 0.7;
+}
+
+/* Stat Cards */
+.stat-card {
+    border-radius: 16px;
+    margin: 0;
+    background: #252542;
+}
+
+.stat-card ion-card-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+}
+
+.stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon ion-icon {
+    font-size: 24px;
+    color: white;
+}
+
+.stat-card.revenue .stat-icon {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.stat-card.bookings .stat-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-card.occupancy .stat-icon {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.stat-card.pending .stat-icon {
+    background: linear-gradient(135deg, #f39c12 0%, #e74c3c 100%);
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: white;
+}
+
+.stat-change {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+}
+
+.stat-change.positive {
+    color: #38ef7d;
+}
+
+.stat-change.negative {
+    color: #f5576c;
+}
+
+.stat-sublabel {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 4px;
+}
+
+/* Chart Card */
+.chart-card {
+    margin: 16px;
+    border-radius: 16px;
+    background: #252542;
+}
+
+.chart-card ion-card-title {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.chart-placeholder {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 150px;
+    padding-top: 20px;
+}
+
+.chart-placeholder .bar {
+    width: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+}
+
+.chart-placeholder .bar span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.7rem;
+}
+
+/* Bookings Card */
+.bookings-card {
+    margin: 16px;
+    border-radius: 16px;
+    background: #252542;
+}
+
+.bookings-card ion-card-title {
+    color: white;
+    font-size: 1.1rem;
+}
+
+.bookings-card ion-list {
+    background: transparent;
+}
+
+.bookings-card .booking-item {
+    --background: transparent;
+    --color: white;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    margin-bottom: 12px;
+}
+
+.bookings-card .booking-item h3 {
+    color: white;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.bookings-card .booking-item p {
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+}
+
+.booking-end {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.booking-amount {
+    color: #38ef7d;
+    font-weight: 600;
+}
+
+.booking-end ion-badge {
+    text-transform: capitalize;
+}

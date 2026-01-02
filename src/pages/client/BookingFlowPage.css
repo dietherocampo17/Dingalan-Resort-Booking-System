@@ -1,0 +1,235 @@
+.booking-content {
+    --background: #f5f7fa;
+}
+
+.step-content {
+    padding: 20px 16px 100px;
+}
+
+.step-content h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 20px;
+}
+
+/* Guest Counter */
+.guest-counter {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.guest-counter span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    min-width: 30px;
+    text-align: center;
+}
+
+.capacity-warning {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    margin-top: 12px;
+    background: #fff8e1;
+    border-radius: 8px;
+}
+
+.nights-info {
+    text-align: center;
+    padding: 16px;
+    background: white;
+    border-radius: 12px;
+    margin-top: 16px;
+    font-size: 1.1rem;
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* Review Card */
+.review-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.review-card h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 4px;
+}
+
+.review-card .room-name {
+    color: #666;
+    margin: 0 0 16px;
+}
+
+.booking-details {
+    border-top: 1px solid #eee;
+    padding-top: 16px;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.detail-row span {
+    color: #666;
+}
+
+/* Price Breakdown */
+.price-breakdown h4 {
+    font-size: 1rem;
+    margin: 0 0 16px;
+    color: #1a1a2e;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    color: #555;
+}
+
+.price-row.total {
+    border-top: 1px solid #eee;
+    margin-top: 8px;
+    padding-top: 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1a1a2e;
+}
+
+/* Error Message */
+.error-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background: #ffebee;
+    border-radius: 12px;
+    color: #c62828;
+    margin-top: 16px;
+}
+
+/* Footer */
+.booking-footer {
+    background: white;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.footer-price .total-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.footer-price .total-amount {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.footer-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.footer-buttons ion-button {
+    --border-radius: 25px;
+    height: 44px;
+    min-width: 100px;
+}
+
+.footer-buttons ion-button:not([fill="outline"]) {
+    --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Success Page */
+.booking-success {
+    --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.success-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.success-icon ion-icon {
+    font-size: 50px;
+    color: #11998e;
+}
+
+.success-content h1 {
+    color: white;
+    font-size: 1.8rem;
+    margin: 0 0 12px;
+}
+
+.success-content>p {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 24px;
+}
+
+.booking-summary-card {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 24px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.summary-row.total {
+    font-size: 1.1rem;
+}
+
+.summary-row.total strong {
+    color: #667eea;
+}
+
+.success-content ion-button {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 12px;
+    --border-radius: 25px;
+}
+
+.success-content ion-button:first-of-type {
+    --background: white;
+    --color: #667eea;
+}

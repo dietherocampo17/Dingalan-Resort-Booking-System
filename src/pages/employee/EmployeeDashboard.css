@@ -1,0 +1,147 @@
+.employee-dashboard {
+    --background: #f5f7fa;
+}
+
+.dashboard-header {
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    padding: 24px 16px;
+    color: white;
+}
+
+.dashboard-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+}
+
+.dashboard-header p {
+    margin: 0;
+    opacity: 0.9;
+}
+
+/* Stat Cards */
+.stat-card {
+    border-radius: 16px;
+    margin: 0;
+}
+
+.stat-card ion-card-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+}
+
+.stat-card ion-icon {
+    font-size: 32px;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.stat-card.check-in ion-icon {
+    color: #27ae60;
+}
+
+.stat-card.check-out ion-icon {
+    color: #e74c3c;
+}
+
+.stat-card.pending ion-icon {
+    color: #f39c12;
+}
+
+.stat-card.total ion-icon {
+    color: #3498db;
+}
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+/* Sections */
+.section {
+    padding: 20px 16px;
+}
+
+.section h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a2e;
+    margin: 0 0 16px;
+}
+
+/* Booking List */
+.booking-list {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.booking-item {
+    --padding-start: 12px;
+    --inner-padding-end: 12px;
+}
+
+.booking-item ion-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.booking-item h3 {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.booking-item p {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.booking-dates {
+    color: #3498db !important;
+}
+
+.booking-item ion-badge {
+    text-transform: capitalize;
+}
+
+/* Quick Actions */
+.quick-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px 12px;
+    background: white;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.quick-action:hover {
+    transform: translateY(-2px);
+}
+
+.quick-action ion-icon {
+    font-size: 28px;
+    color: #3498db;
+}
+
+.quick-action span {
+    font-size: 0.8rem;
+    color: #1a1a2e;
+    font-weight: 500;
+}

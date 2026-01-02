@@ -1,0 +1,100 @@
+.availability-management {
+    --background: var(--ion-background-color);
+}
+
+.page-header {
+    background: transparent;
+    padding: 32px 24px 16px;
+    color: var(--ion-text-color);
+}
+
+.page-header h1 {
+    margin: 0 0 8px;
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--ion-color-primary);
+}
+
+.page-header p {
+    margin: 0;
+    color: var(--ion-color-medium);
+    font-size: 1.1rem;
+}
+
+.resort-card {
+    margin: 24px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.resort-card ion-card-header {
+    background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
+    padding: 20px 24px;
+}
+
+.resort-card ion-card-title {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.resort-card ion-list {
+    padding: 12px 0;
+    background: transparent;
+}
+
+.room-item {
+    --background: transparent;
+    --padding-start: 24px;
+    --padding-end: 24px;
+    --border-color: #f3f4f6;
+    margin-bottom: 8px;
+}
+
+.room-info h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: var(--ion-text-color);
+}
+
+.room-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--ion-color-medium);
+    font-size: 0.95rem;
+}
+
+.room-meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.room-meta ion-icon {
+    color: var(--ion-color-primary);
+    font-size: 1.1rem;
+}
+
+.room-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.room-actions ion-badge {
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.room-actions ion-button {
+    --border-radius: 8px;
+    font-weight: 600;
+    --border-width: 1.5px;
+}
