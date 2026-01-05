@@ -51,7 +51,7 @@ const AppRoutes: React.FC = () => {
   }
 
   return (
-    <IonReactRouter>
+    <IonReactRouter basename="/Dingalan-Resort-Booking-System">
       <Switch>
         {/* Auth Routes */}
         <Route path="/auth" component={LoginPage} />
