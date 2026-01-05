@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { IonApp, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
+import { createHashHistory } from 'history';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -39,6 +40,8 @@ import LoginPage from './pages/auth/LoginPage';
 
 setupIonicReact();
 
+const history = createHashHistory();
+
 const AppRoutes: React.FC = () => {
   const { user, isLoading } = useAuth();
 
@@ -51,7 +54,7 @@ const AppRoutes: React.FC = () => {
   }
 
   return (
-    <IonReactRouter basename="/Dingalan-Resort-Booking-System">
+    <IonReactRouter history={history}>
       <Switch>
         {/* Auth Routes */}
         <Route path="/auth" component={LoginPage} />
