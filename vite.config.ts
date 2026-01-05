@@ -10,6 +10,7 @@ export default defineConfig({
     react(),
     legacy()
   ],
+  base: '/Dingalan-Resort-Booking-System/',
   test: {
     globals: true,
     environment: 'jsdom',

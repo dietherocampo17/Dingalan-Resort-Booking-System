@@ -1,5 +1,5 @@
 .explore-content {
-    --background: #f5f7fa;
+    --background: var(--ion-background-color);
 }
 
 .filter-bar {
@@ -68,7 +68,7 @@
     position: absolute;
     top: 12px;
     left: 12px;
-    --background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --background: var(--ion-color-primary);
     font-size: 0.7rem;
     padding: 4px 8px;
 }
@@ -140,7 +140,7 @@ ion-card-subtitle {
 
 .rating span {
     font-weight: 600;
-    color: #1a1a2e;
+    color: var(--ion-text-color);
 }
 
 .rating .review-count {
@@ -152,7 +152,7 @@ ion-card-subtitle {
 .price .amount {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #667eea;
+    color: var(--ion-color-primary);
 }
 
 .price .per {
@@ -205,7 +205,7 @@ ion-card-subtitle {
 }
 
 .apply-btn {
-    --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --background: var(--ion-color-primary);
     margin: 20px 0;
     height: 50px;
     font-weight: 600;

@@ -1,5 +1,5 @@
 .home-content {
-  --background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+  --background: var(--ion-background-color);
 }
 
 /* Hero Section */
@@ -67,7 +67,8 @@
   outline: none;
   font-size: 1rem;
   padding: 8px;
-  color: #333;
+  background: transparent;
+  color: var(--ion-text-color);
 }
 
 .search-box ion-button {
@@ -101,7 +102,7 @@
 }
 
 .sc-link {
-  color: #667eea;
+  color: var(--ion-color-primary);
   font-weight: 600;
   cursor: pointer;
 }
@@ -207,7 +208,7 @@
   top: 16px;
   left: 16px;
   background: rgba(255, 255, 255, 0.95);
-  color: #11998e;
+  color: var(--ion-color-primary);
   padding: 6px 12px;
   border-radius: 20px;
   font-size: 0.75rem;
@@ -291,7 +292,7 @@ ion-card-subtitle {
 }
 
 .rating-badge {
-  background: #6c5ce7;
+  background: var(--ion-color-primary);
   color: white;
   padding: 4px 8px;
   border-radius: 6px;
