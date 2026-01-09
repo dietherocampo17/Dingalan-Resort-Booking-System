@@ -17,6 +17,8 @@ import ResortDetailPage from '../pages/client/ResortDetailPage';
 import BookingsPage from '../pages/client/BookingsPage';
 import ProfilePage from '../pages/client/ProfilePage';
 import BookingFlowPage from '../pages/client/BookingFlowPage';
+import PersonalInformationPage from '../pages/client/PersonalInformationPage';
+import SavedResortsPage from '../pages/client/SavedResortsPage';
 
 const ClientLayout: React.FC = () => {
     return (
@@ -28,6 +30,8 @@ const ClientLayout: React.FC = () => {
                 <Route exact path="/client/book/:resortId/:roomId" component={BookingFlowPage} />
                 <Route exact path="/client/bookings" component={BookingsPage} />
                 <Route exact path="/client/profile" component={ProfilePage} />
+                <Route exact path="/client/profile/personal-info" component={PersonalInformationPage} />
+                <Route exact path="/client/profile/saved-resorts" component={SavedResortsPage} />
                 <Route exact path="/client">
                     <Redirect to="/client/home" />
                 </Route>

@@ -1,23 +1,8 @@
-.explore-content {
-    --background: var(--ion-background-color);
+.saved-resorts-content {
+    --background: #f5f7fa;
 }
 
-.filter-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    background: white;
-    border-bottom: 1px solid #eee;
-}
-
-.results-info {
-    padding: 12px 16px;
-    color: #666;
-    font-size: 0.9rem;
-}
-
-/* Resort Cards */
+/* Resort Cards - Copied from ExplorePage.css for consistency */
 .resort-card {
     border-radius: 16px;
     overflow: hidden;
@@ -25,26 +10,12 @@
     margin: 0;
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: white;
 }
 
 .resort-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-.resort-card.list {
-    display: flex;
-    flex-direction: row;
-}
-
-.resort-card.list .card-image-container {
-    width: 140px;
-    min-width: 140px;
-    height: 140px;
-}
-
-.resort-card.list .card-body {
-    flex: 1;
 }
 
 .card-image-container {
@@ -98,18 +69,23 @@
     color: #e74c3c;
 }
 
-ion-card-title {
+.resort-card ion-card-header {
+    padding-bottom: 0;
+}
+
+.resort-card ion-card-title {
     font-size: 1.1rem;
     font-weight: 600;
     color: #1a1a2e;
 }
 
-ion-card-subtitle {
+.resort-card ion-card-subtitle {
     display: flex;
     align-items: center;
     gap: 4px;
     color: #666;
     font-size: 0.85rem;
+    margin-top: 4px;
 }
 
 .amenities-preview {
@@ -117,6 +93,7 @@ ion-card-subtitle {
     flex-wrap: wrap;
     gap: 6px;
     margin-bottom: 12px;
+    margin-top: 12px;
 }
 
 .amenity-chip {
@@ -124,6 +101,7 @@ ion-card-subtitle {
     --padding-end: 8px;
     font-size: 0.7rem;
     height: 24px;
+    margin: 0;
 }
 
 .card-footer {
@@ -132,6 +110,9 @@ ion-card-subtitle {
     align-items: center;
     flex-wrap: wrap;
     gap: 8px;
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid #f0f0f0;
 }
 
 .rating {
@@ -155,7 +136,7 @@ ion-card-subtitle {
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--ion-color-primary);
-    margin-right: 8px;
+    margin-right: 4px;
 }
 
 .price .per {
@@ -163,76 +144,35 @@ ion-card-subtitle {
     color: #666;
 }
 
-/* No Results */
-.no-results {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 60px 20px;
-    text-align: center;
-}
-
-.no-results h3 {
-    color: #1a1a2e;
-    margin-bottom: 8px;
-}
-
-.no-results p {
-    color: #666;
-    margin-bottom: 20px;
-}
-
-/* Filter Modal */
-.filter-modal-content {
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --padding-top: 16px;
-}
-
 .resort-card .card-body {
     padding: 16px;
     display: flex;
     flex-direction: column;
-    height: 100%;
 }
 
-.resort-card ion-card-content {
-    padding: 0;
-}
-
-.card-footer {
+.no-favorites {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: auto;
-    padding-top: 12px;
-    padding-right: 4px;
-    /* Ensure 4px buffer from right edge */
+    justify-content: center;
+    height: 60vh;
+    text-align: center;
+    padding: 20px;
 }
 
-.filter-section {
-    margin-bottom: 24px;
+.no-favorites ion-icon {
+    font-size: 64px;
+    color: #ccc;
+    margin-bottom: 16px;
 }
 
-.filter-section h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #1a1a2e;
-    margin-bottom: 12px;
+.no-favorites h3 {
+    margin: 0 0 8px;
+    color: #333;
 }
 
-.amenities-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.apply-btn {
-    --background: var(--ion-color-primary);
-    margin: 20px 0;
-    height: 50px;
-    font-weight: 600;
+.no-favorites p {
+    margin: 0 0 24px;
+    color: #666;
+    max-width: 300px;
 }

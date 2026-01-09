@@ -153,9 +153,33 @@ ion-segment {
     background: white;
     padding: 12px 16px;
     margin-bottom: 12px;
+    border-radius: 12px;
+    --background: #f4f5f8;
+}
+
+ion-segment-button {
+    --color: #555;
+    --color-checked: var(--ion-color-primary);
+    --indicator-color: var(--ion-color-primary);
+    --indicator-height: 3px;
+    min-height: 48px;
+}
+
+ion-segment-button ion-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+ion-segment-button.segment-button-checked ion-label {
+    color: var(--ion-color-primary);
 }
 
 /* Rooms */
+.room-card ion-card-content {
+    padding-bottom: 20px;
+}
+
 .rooms-section {
     padding: 0 16px 100px;
 }
@@ -229,8 +253,11 @@ ion-segment {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: 16px;
+    padding: 16px;
+    margin-top: 12px;
     border-top: 1px solid #eee;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .room-footer .price .amount {
@@ -255,10 +282,15 @@ ion-segment {
     padding: 0 16px 100px;
 }
 
-.no-reviews {
+.no-reviews,
+.no-data-message {
     text-align: center;
-    padding: 40px 20px;
-    color: #666;
+    padding: 3rem 1rem;
+    color: var(--ion-color-medium);
+    font-size: 0.95rem;
+    background: var(--ion-background-color);
+    border-radius: 12px;
+    margin-top: 1rem;
 }
 
 .review-card {
@@ -279,6 +311,17 @@ ion-segment {
 .review-header ion-avatar {
     width: 44px;
     height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.review-header ion-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .review-meta {
@@ -310,4 +353,113 @@ ion-segment {
     color: #555;
     line-height: 1.5;
     margin: 0;
+}
+
+/* Review Modal & Action */
+.reviews-header-action {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.write-review-btn {
+    --color: var(--ion-color-primary);
+    font-weight: 600;
+}
+
+.review-modal {
+    --height: auto;
+    --min-height: 450px;
+    --border-radius: 16px 16px 0 0;
+    align-items: flex-end;
+    --background: transparent;
+}
+
+.modal-container {
+    background: white;
+    width: 100%;
+    height: 100%;
+    border-radius: 16px 16px 0 0;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1a1a2e;
+}
+
+.rating-select {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.rating-select p {
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.rating-select .stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.rating-select .stars ion-icon {
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.rating-select .stars ion-icon:hover {
+    transform: scale(1.1);
+}
+
+.star-filled {
+    color: #ffc107;
+}
+
+.star-empty {
+    color: #e0e0e0;
+}
+
+.comment-input label {
+    display: block;
+    color: #1a1a2e;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.native-textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+    transition: border-color 0.2s;
+    background-color: #fff;
+    color: #333;
+}
+
+.native-textarea:focus {
+    border-color: var(--ion-color-primary);
+}
+
+.modal-footer {
+    margin-top: 24px;
 }

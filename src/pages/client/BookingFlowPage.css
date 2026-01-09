@@ -13,6 +13,51 @@
     margin: 0 0 20px;
 }
 
+/* Payment Styles */
+.payment-radio-item {
+    --background: transparent;
+    margin-bottom: 8px;
+}
+
+.payment-instructions {
+    padding: 0 16px 16px 52px;
+}
+
+.instruction-box {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+
+.instruction-text {
+    margin-bottom: 12px;
+    color: #495057;
+    font-size: 0.9rem;
+}
+
+.account-details p {
+    margin: 4px 0;
+    color: #212529;
+    font-size: 0.95rem;
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* Guest Counter */
 .guest-counter {
     display: flex;

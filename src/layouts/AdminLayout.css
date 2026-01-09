@@ -1,0 +1,72 @@
+/* Sidebar Background */
+.admin-menu-drawer ion-content {
+    --background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+}
+
+.admin-profile-section {
+    padding: 40px 20px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 20px;
+}
+
+.admin-profile-section ion-avatar {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 16px;
+    border: 3px solid var(--ion-color-primary);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-profile-section h3 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.admin-profile-section p {
+    margin: 6px 0 0;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Menu Items */
+.admin-menu {
+    background: transparent;
+    padding: 0 12px;
+}
+
+.admin-menu ion-item {
+    --background: transparent;
+    --color: rgba(255, 255, 255, 0.6);
+    --padding-start: 16px;
+    --min-height: 48px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.admin-menu ion-item:hover {
+    --background: rgba(255, 255, 255, 0.05);
+    --color: #ffffff;
+    cursor: pointer;
+}
+
+.admin-menu ion-item.item-active-detail {
+    --background: var(--ion-color-primary);
+    --color: #ffffff;
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    font-weight: 600;
+}
+
+.admin-menu ion-icon {
+    margin-right: 14px;
+    font-size: 1.2rem;
+    opacity: 0.9;
+}

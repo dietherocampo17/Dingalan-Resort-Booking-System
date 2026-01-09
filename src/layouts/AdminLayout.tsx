@@ -28,6 +28,7 @@ import {
     logOut
 } from 'ionicons/icons';
 import { useAuth } from '../context/AuthContext';
+import './AdminLayout.css';
 
 // Admin Pages
 import AdminDashboard from '../pages/admin/AdminDashboard';
@@ -54,7 +55,7 @@ const AdminLayout: React.FC = () => {
 
     return (
         <IonSplitPane contentId="admin-main" when="md">
-            <IonMenu contentId="admin-main" type="overlay">
+            <IonMenu contentId="admin-main" type="overlay" className="admin-menu-drawer">
                 <IonHeader>
                     <IonToolbar color="dark">
                         <IonTitle>Admin Panel</IonTitle>

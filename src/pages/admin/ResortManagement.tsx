@@ -25,9 +25,9 @@ import {
     IonSelectOption,
     IonAlert
 } from '@ionic/react';
-import { addOutline, createOutline, trashOutline, star, location, close, saveOutline } from 'ionicons/icons';
+import { addOutline, createOutline, trashOutline, star, location, close, saveOutline, pencilOutline, bedOutline, wifiOutline } from 'ionicons/icons';
 import { dataService } from '../../services/MockDataService';
-import { Resort } from '../../types';
+import { Resort, RoomType } from '../../types';
 import './ResortManagement.css';
 
 const AMENITY_OPTIONS = [
@@ -51,6 +51,19 @@ const emptyResort: Resort = {
     status: 'active'
 };
 
+const emptyRoom: RoomType = {
+    id: '',
+    resortId: '',
+    name: '',
+    description: '',
+    capacity: 2,
+    pricePerNight: 0,
+    inclusions: [],
+    images: ['https://images.unsplash.com/photo-1590490360182-c583ca46fd08?w=800'],
+    amenities: [],
+    quantity: 1
+};
+
 const ResortManagement: React.FC = () => {
     const [resorts, setResorts] = useState<Resort[]>([]);
     const [searchText, setSearchText] = useState('');
@@ -59,6 +72,15 @@ const ResortManagement: React.FC = () => {
     const [isNew, setIsNew] = useState(false);
     const [showDeleteAlert, setShowDeleteAlert] = useState(false);
     const [resortToDelete, setResortToDelete] = useState<string>('');
+    const [newAmenityText, setNewAmenityText] = useState('');
+
+    // Room Management State
+    const [rooms, setRooms] = useState<RoomType[]>([]);
+    const [roomsToDelete, setRoomsToDelete] = useState<string[]>([]);
+    const [showRoomModal, setShowRoomModal] = useState(false);
+    const [editingRoom, setEditingRoom] = useState<RoomType>(emptyRoom);
+    const [newInclusion, setNewInclusion] = useState('');
+    const [newRoomAmenity, setNewRoomAmenity] = useState('');
 
     useEffect(() => {
         loadResorts();
@@ -75,18 +97,36 @@ const ResortManagement: React.FC = () => {
 
     const handleAddNew = () => {
         setEditingResort({ ...emptyResort, id: `resort-${Date.now()}` });
+        setRooms([]);
+        setRoomsToDelete([]);
         setIsNew(true);
         setShowModal(true);
     };
 
     const handleEdit = (resort: Resort) => {
         setEditingResort({ ...resort });
+        setRooms(dataService.getRoomTypes(resort.id));
+        setRoomsToDelete([]);
         setIsNew(false);
         setShowModal(true);
     };
 
     const handleSave = () => {
+        // Save resort
         dataService.saveResort(editingResort);
+
+        // Delete removed rooms
+        roomsToDelete.forEach(id => {
+            if (!id.startsWith('temp-')) { // Only delete real backend IDs
+                dataService.deleteRoomType(id);
+            }
+        });
+
+        // Save/Update rooms
+        rooms.forEach(room => {
+            dataService.saveRoomType({ ...room, resortId: editingResort.id });
+        });
+
         loadResorts();
         setShowModal(false);
     };
@@ -115,6 +155,43 @@ const ResortManagement: React.FC = () => {
             }
             return prev;
         });
+    };
+
+    // Room Management Handlers
+    const handleAddNewRoom = () => {
+        setEditingRoom({ ...emptyRoom, id: `temp-${Date.now()}`, resortId: editingResort.id });
+        setNewInclusion('');
+        setNewRoomAmenity('');
+        setShowRoomModal(true);
+    };
+
+    const handleEditRoom = (room: RoomType) => {
+        setEditingRoom({ ...room });
+        setNewInclusion('');
+        setNewRoomAmenity('');
+        setShowRoomModal(true);
+    };
+
+    const handleSaveRoom = () => {
+        const updatedRooms = [...rooms];
+        const idx = updatedRooms.findIndex(r => r.id === editingRoom.id);
+        if (idx >= 0) {
+            updatedRooms[idx] = editingRoom;
+        } else {
+            updatedRooms.push(editingRoom);
+        }
+        setRooms(updatedRooms);
+        setShowRoomModal(false);
+    };
+
+    const handleDeleteRoom = (id: string) => {
+        const updatedRooms = rooms.filter(r => r.id !== id);
+        setRooms(updatedRooms);
+        setRoomsToDelete(prev => [...prev, id]);
+    };
+
+    const updateRoomField = (field: keyof RoomType, value: any) => {
+        setEditingRoom(prev => ({ ...prev, [field]: value }));
     };
 
     return (
@@ -278,17 +355,50 @@ const ResortManagement: React.FC = () => {
                     <div className="form-section">
                         <h3>Amenities</h3>
                         <IonItem>
-                            <IonLabel position="stacked">Select Amenities</IonLabel>
-                            <IonSelect
-                                multiple
-                                value={editingResort.amenities}
-                                onIonChange={e => updateField('amenities', e.detail.value)}
-                                placeholder="Choose amenities"
-                            >
-                                {AMENITY_OPTIONS.map(a => (
-                                    <IonSelectOption key={a} value={a}>{a}</IonSelectOption>
+                            <IonLabel position="stacked">Amenities</IonLabel>
+                            <div className="amenity-input-container" style={{ display: 'flex', gap: '8px', marginTop: '8px' }}>
+                                <IonInput
+                                    placeholder="Add amenity (e.g. Helipad)"
+                                    value={newAmenityText}
+                                    onIonInput={e => setNewAmenityText(e.detail.value!)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter') {
+                                            if (newAmenityText.trim()) {
+                                                const newAmenity = newAmenityText.trim();
+                                                if (!editingResort.amenities.includes(newAmenity)) {
+                                                    updateField('amenities', [...editingResort.amenities, newAmenity]);
+                                                }
+                                                setNewAmenityText('');
+                                            }
+                                        }
+                                    }}
+                                />
+                                <IonButton
+                                    size="small"
+                                    fill="outline"
+                                    onClick={() => {
+                                        if (newAmenityText.trim()) {
+                                            const newAmenity = newAmenityText.trim();
+                                            if (!editingResort.amenities.includes(newAmenity)) {
+                                                updateField('amenities', [...editingResort.amenities, newAmenity]);
+                                            }
+                                            setNewAmenityText('');
+                                        }
+                                    }}
+                                >
+                                    <IonIcon icon={addOutline} />
+                                </IonButton>
+                            </div>
+                            <div className="amenities-chips" style={{ marginTop: '12px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                {editingResort.amenities.map(a => (
+                                    <IonChip key={a} onClick={() => {
+                                        updateField('amenities', editingResort.amenities.filter(item => item !== a));
+                                    }}>
+                                        <IonLabel>{a}</IonLabel>
+                                        <IonIcon icon={close} />
+                                    </IonChip>
                                 ))}
-                            </IonSelect>
+                            </div>
                         </IonItem>
                     </div>
 
@@ -346,6 +456,181 @@ const ResortManagement: React.FC = () => {
                                 </IonSelect>
                             </IonItem>
                         </IonList>
+                    </div>
+
+                    <div className="form-section">
+                        <div className="section-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                            <h3>Accommodations & Services</h3>
+                            <IonButton size="small" onClick={handleAddNewRoom}>
+                                <IonIcon icon={addOutline} slot="start" /> Add
+                            </IonButton>
+                        </div>
+
+                        {rooms.length === 0 ? (
+                            <p style={{ color: '#666', fontStyle: 'italic' }}>No rooms or services added yet.</p>
+                        ) : (
+                            <div className="rooms-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
+                                {rooms.map(room => (
+                                    <IonCard key={room.id} style={{ margin: 0 }}>
+                                        <div style={{ height: '140px', overflow: 'hidden' }}>
+                                            <img src={room.images[0]} alt={room.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                                        </div>
+                                        <IonCardContent>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start' }}>
+                                                <h4 style={{ margin: '0 0 4px', fontSize: '1rem', fontWeight: 'bold' }}>{room.name}</h4>
+                                                <IonBadge color="primary">₱{room.pricePerNight.toLocaleString()}</IonBadge>
+                                            </div>
+                                            <p style={{ fontSize: '0.85rem', color: '#666', margin: '4px 0' }}>Legacy: {room.capacity} pax | Qty: {room.quantity}</p>
+                                            <div style={{ display: 'flex', gap: '8px', marginTop: '12px' }}>
+                                                <IonButton fill="outline" size="small" expand="block" style={{ flex: 1 }} onClick={() => handleEditRoom(room)}>
+                                                    <IonIcon icon={pencilOutline} />
+                                                </IonButton>
+                                                <IonButton fill="outline" color="danger" size="small" expand="block" style={{ flex: 1 }} onClick={() => handleDeleteRoom(room.id)}>
+                                                    <IonIcon icon={trashOutline} />
+                                                </IonButton>
+                                            </div>
+                                        </IonCardContent>
+                                    </IonCard>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+                </IonContent>
+            </IonModal>
+
+            {/* Room Edit Modal */}
+            <IonModal isOpen={showRoomModal} onDidDismiss={() => setShowRoomModal(false)}>
+                <IonHeader>
+                    <IonToolbar color="light">
+                        <IonTitle>{editingRoom.id.startsWith('temp') ? 'Add Room/Service' : 'Edit Room/Service'}</IonTitle>
+                        <IonButtons slot="end">
+                            <IonButton onClick={() => setShowRoomModal(false)}>Close</IonButton>
+                        </IonButtons>
+                    </IonToolbar>
+                </IonHeader>
+                <IonContent className="ion-padding">
+                    <IonList>
+                        <IonItem>
+                            <IonLabel position="stacked">Name *</IonLabel>
+                            <IonInput
+                                value={editingRoom.name}
+                                onIonInput={e => updateRoomField('name', e.detail.value)}
+                                placeholder="e.g. Deluxe Room, Beach Cottage"
+                            />
+                        </IonItem>
+                        <IonItem>
+                            <IonLabel position="stacked">Description</IonLabel>
+                            <IonTextarea
+                                value={editingRoom.description}
+                                onIonInput={e => updateRoomField('description', e.detail.value)}
+                                rows={3}
+                            />
+                        </IonItem>
+                        <IonItem>
+                            <IonLabel position="stacked">Image URL</IonLabel>
+                            <IonInput
+                                value={editingRoom.images[0]}
+                                onIonInput={e => updateRoomField('images', [e.detail.value])}
+                                placeholder="https://..."
+                            />
+                        </IonItem>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                            <IonItem style={{ flex: 1 }}>
+                                <IonLabel position="stacked">Price (₱)</IonLabel>
+                                <IonInput
+                                    type="number"
+                                    value={editingRoom.pricePerNight}
+                                    onIonInput={e => updateRoomField('pricePerNight', Number(e.detail.value))}
+                                />
+                            </IonItem>
+                            <IonItem style={{ flex: 1 }}>
+                                <IonLabel position="stacked">Capacity (Pax)</IonLabel>
+                                <IonInput
+                                    type="number"
+                                    value={editingRoom.capacity}
+                                    onIonInput={e => updateRoomField('capacity', Number(e.detail.value))}
+                                />
+                            </IonItem>
+                            <IonItem style={{ flex: 1 }}>
+                                <IonLabel position="stacked">Quantity</IonLabel>
+                                <IonInput
+                                    type="number"
+                                    value={editingRoom.quantity}
+                                    onIonInput={e => updateRoomField('quantity', Number(e.detail.value))}
+                                />
+                            </IonItem>
+                        </div>
+
+                        <div className="ion-marginTop">
+                            <IonLabel style={{ marginLeft: '16px', color: '#666', fontSize: '0.9rem' }}>Amenities (e.g. AC, TV)</IonLabel>
+                            <div style={{ display: 'flex', gap: '8px', padding: '0 16px', marginTop: '8px' }}>
+                                <IonInput
+                                    placeholder="Add amenity..."
+                                    value={newRoomAmenity}
+                                    onIonInput={e => setNewRoomAmenity(e.detail.value!)}
+                                    className="custom-input-border"
+                                />
+                                <IonButton
+                                    size="small"
+                                    fill="solid"
+                                    onClick={() => {
+                                        if (newRoomAmenity.trim()) {
+                                            updateRoomField('amenities', [...editingRoom.amenities, newRoomAmenity.trim()]);
+                                            setNewRoomAmenity('');
+                                        }
+                                    }}
+                                >
+                                    <IonIcon icon={addOutline} />
+                                </IonButton>
+                            </div>
+                            <div style={{ padding: '8px 16px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                {editingRoom.amenities.map(a => (
+                                    <IonChip key={a} onClick={() => updateRoomField('amenities', editingRoom.amenities.filter(item => item !== a))}>
+                                        <IonIcon icon={wifiOutline} size="small" />
+                                        <IonLabel>{a}</IonLabel>
+                                        <IonIcon icon={close} />
+                                    </IonChip>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className="ion-marginTop">
+                            <IonLabel style={{ marginLeft: '16px', color: '#666', fontSize: '0.9rem' }}>Inclusions (e.g. Breakfast)</IonLabel>
+                            <div style={{ display: 'flex', gap: '8px', padding: '0 16px', marginTop: '8px' }}>
+                                <IonInput
+                                    placeholder="Add inclusion..."
+                                    value={newInclusion}
+                                    onIonInput={e => setNewInclusion(e.detail.value!)}
+                                />
+                                <IonButton
+                                    size="small"
+                                    fill="solid"
+                                    onClick={() => {
+                                        if (newInclusion.trim()) {
+                                            updateRoomField('inclusions', [...editingRoom.inclusions, newInclusion.trim()]);
+                                            setNewInclusion('');
+                                        }
+                                    }}
+                                >
+                                    <IonIcon icon={addOutline} />
+                                </IonButton>
+                            </div>
+                            <div style={{ padding: '8px 16px', display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                                {editingRoom.inclusions.map(inc => (
+                                    <IonChip key={inc} onClick={() => updateRoomField('inclusions', editingRoom.inclusions.filter(item => item !== inc))}>
+                                        <IonIcon icon={bedOutline} size="small" />
+                                        <IonLabel>{inc}</IonLabel>
+                                        <IonIcon icon={close} />
+                                    </IonChip>
+                                ))}
+                            </div>
+                        </div>
+                    </IonList>
+
+                    <div className="ion-padding">
+                        <IonButton expand="block" shape="round" onClick={handleSaveRoom}>
+                            {editingRoom.id.startsWith('temp') ? 'Add Room' : 'Save Changes'}
+                        </IonButton>
                     </div>
                 </IonContent>
             </IonModal>

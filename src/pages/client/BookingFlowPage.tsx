@@ -47,6 +47,11 @@ const BookingFlowPage: React.FC = () => {
     const [step, setStep] = useState(1);
     const [resort, setResort] = useState<Resort | null>(null);
     const [room, setRoom] = useState<RoomType | null>(null);
+    const [paymentConfigs, setPaymentConfigs] = useState<any[]>([]);
+
+    useEffect(() => {
+        setPaymentConfigs(dataService.getPaymentConfigs());
+    }, []);
 
     // Booking details
     const [checkIn, setCheckIn] = useState('');
@@ -273,28 +278,31 @@ const BookingFlowPage: React.FC = () => {
                         <IonCard>
                             <IonCardContent>
                                 <IonRadioGroup value={paymentMethod} onIonChange={e => setPaymentMethod(e.detail.value)}>
-                                    <IonItem>
-                                        <IonLabel>
-                                            <h3>GCash</h3>
-                                            <p>Pay with your GCash wallet</p>
-                                        </IonLabel>
-                                        <IonRadio slot="start" value="gcash" />
-                                    </IonItem>
-                                    <IonItem>
-                                        <IonLabel>
-                                            <h3>Credit/Debit Card</h3>
-                                            <p>Visa, Mastercard, etc.</p>
-                                        </IonLabel>
-                                        <IonRadio slot="start" value="card" />
-                                    </IonItem>
-                                    <IonItem>
-                                        <IonLabel>
-                                            <h3>Bank Transfer</h3>
-                                            <p>Direct bank transfer</p>
-                                        </IonLabel>
-                                        <IonRadio slot="start" value="bank" />
-                                    </IonItem>
-                                    <IonItem>
+                                    {paymentConfigs.filter(c => c.isEnabled).map(config => (
+                                        <div key={config.id}>
+                                            <IonItem lines="none" className="payment-radio-item">
+                                                <IonLabel>
+                                                    <h3>{config.name}</h3>
+                                                    <p>{config.description}</p>
+                                                </IonLabel>
+                                                <IonRadio slot="start" value={config.id} />
+                                            </IonItem>
+
+                                            {paymentMethod === config.id && (
+                                                <div className="payment-instructions fade-in">
+                                                    <div className="instruction-box">
+                                                        <p className="instruction-text">{config.instructions}</p>
+                                                        <div className="account-details">
+                                                            <p><strong>Account Name:</strong> {config.accountName}</p>
+                                                            <p><strong>Account Number:</strong> {config.accountNumber}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
+
+                                    <IonItem lines="none" className="payment-radio-item">
                                         <IonLabel>
                                             <h3>Pay at Resort</h3>
                                             <p>Reserve now, pay upon arrival</p>

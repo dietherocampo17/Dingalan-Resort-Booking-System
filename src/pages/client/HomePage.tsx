@@ -126,7 +126,7 @@ const HomePage: React.FC = () => {
                                         <IonIcon icon={location} /> {resort.location.city}, {resort.location.province}
                                     </IonCardSubtitle>
                                 </IonCardHeader>
-                                <IonCardContent>
+                                <IonCardContent className="card-content">
                                     <div className="card-footer">
                                         <div className="rating">
                                             <IonIcon icon={star} color="warning" />
@@ -171,7 +171,7 @@ const HomePage: React.FC = () => {
                                                 <IonIcon icon={location} /> {resort.location.city}
                                             </IonCardSubtitle>
                                         </IonCardHeader>
-                                        <IonCardContent>
+                                        <IonCardContent className="card-content">
                                             <div className="amenities-preview">
                                                 {resort.amenities.slice(0, 3).map(a => (
                                                     <IonChip key={a} color="light" className="amenity-chip">{a}</IonChip>

@@ -40,6 +40,22 @@ const ProfilePage: React.FC = () => {
         history.push('/auth/login');
     };
 
+    const handleMenuClick = (item: string) => {
+        switch (item) {
+            case 'Personal Information':
+                history.push('/client/profile/personal-info');
+                break;
+            case 'Saved Resorts':
+                history.push('/client/profile/saved-resorts');
+                break;
+            case 'Edit Profile':
+                history.push('/client/profile/personal-info');
+                break;
+            default:
+                alert(`${item} feature coming soon!`);
+        }
+    };
+
     if (!isAuthenticated || !user) {
         return (
             <IonPage>
@@ -86,7 +102,7 @@ const ProfilePage: React.FC = () => {
                     </IonAvatar>
                     <h2>{user.name}</h2>
                     <p>{user.email}</p>
-                    <IonButton fill="outline" size="small">Edit Profile</IonButton>
+                    <IonButton fill="outline" size="small" onClick={() => handleMenuClick('Edit Profile')}>Edit Profile</IonButton>
                 </div>
 
                 {/* Quick Stats */}
@@ -111,15 +127,15 @@ const ProfilePage: React.FC = () => {
 
                 {/* Menu Items */}
                 <IonList lines="none" className="profile-menu">
-                    <IonItem button detail>
+                    <IonItem button detail onClick={() => handleMenuClick('Personal Information')}>
                         <IonIcon icon={personOutline} slot="start" color="primary" />
                         <IonLabel>Personal Information</IonLabel>
                     </IonItem>
-                    <IonItem button detail>
+                    <IonItem button detail onClick={() => handleMenuClick('Saved Resorts')}>
                         <IonIcon icon={heartOutline} slot="start" color="danger" />
                         <IonLabel>Saved Resorts</IonLabel>
                     </IonItem>
-                    <IonItem button detail>
+                    <IonItem button detail onClick={() => handleMenuClick('Security & Privacy')}>
                         <IonIcon icon={shieldCheckmarkOutline} slot="start" color="success" />
                         <IonLabel>Security & Privacy</IonLabel>
                     </IonItem>
@@ -131,11 +147,11 @@ const ProfilePage: React.FC = () => {
                 </IonList>
 
                 <IonList lines="none" className="profile-menu">
-                    <IonItem button detail>
+                    <IonItem button detail onClick={() => handleMenuClick('Help & Support')}>
                         <IonIcon icon={helpCircleOutline} slot="start" color="tertiary" />
                         <IonLabel>Help & Support</IonLabel>
                     </IonItem>
-                    <IonItem button detail>
+                    <IonItem button detail onClick={() => handleMenuClick('Settings')}>
                         <IonIcon icon={settingsOutline} slot="start" color="medium" />
                         <IonLabel>Settings</IonLabel>
                     </IonItem>

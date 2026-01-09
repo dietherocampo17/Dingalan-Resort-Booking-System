@@ -34,10 +34,7 @@ import { dataService } from '../../services/MockDataService';
 import { Resort } from '../../types';
 import './ExplorePage.css';
 
-const ALL_AMENITIES = [
-    'Beach Access', 'Pool', 'Spa', 'Wi-Fi', 'Restaurant', 'Bar',
-    'Gym', 'Water Sports', 'Mountain View', 'Lake View', 'Hiking Trails'
-];
+// Removed hardcoded ALL_AMENITIES constant
 
 const ExplorePage: React.FC = () => {
     const history = useHistory();
@@ -253,7 +250,7 @@ const ExplorePage: React.FC = () => {
                         <div className="filter-section">
                             <h3>Amenities</h3>
                             <div className="amenities-grid">
-                                {ALL_AMENITIES.map(amenity => (
+                                {Array.from(new Set(resorts.flatMap(r => r.amenities))).sort().map(amenity => (
                                     <IonChip
                                         key={amenity}
                                         color={selectedAmenities.includes(amenity) ? 'primary' : 'medium'}

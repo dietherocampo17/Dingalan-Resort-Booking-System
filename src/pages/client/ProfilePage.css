@@ -47,7 +47,7 @@
 /* Profile Header */
 .profile-header {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 40px 20px;
+    padding: 40px 20px 60px;
     text-align: center;
     color: white;
 }
@@ -78,9 +78,14 @@
 
 /* Stats Card */
 .stats-card {
-    margin: -20px 16px 16px;
+    margin: -40px 16px 16px;
     border-radius: 16px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: white;
+    /* Ensure solid background */
+    --background: white;
+    position: relative;
+    z-index: 20;
 }
 
 .stats-grid {
@@ -96,12 +101,12 @@
     display: block;
     font-size: 1.5rem;
     font-weight: 700;
-    color: #667eea;
+    color: #667eea !important;
 }
 
 .stat-label {
     font-size: 0.85rem;
-    color: #666;
+    color: #666 !important;
 }
 
 /* Profile Menu */
@@ -110,11 +115,15 @@
     margin: 16px;
     border-radius: 16px;
     overflow: hidden;
+    position: relative;
+    z-index: 10;
+    pointer-events: auto;
 }
 
 .profile-menu ion-item {
     --padding-start: 16px;
     --inner-padding-end: 16px;
+    cursor: pointer;
 }
 
 .profile-menu ion-icon {

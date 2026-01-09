@@ -32,9 +32,14 @@ import {
 } from 'ionicons/icons';
 import { dataService } from '../../services/MockDataService';
 import { Booking } from '../../types';
+import { useAuth } from '../../context/AuthContext';
 import './BookingManagement.css';
 
+import { useLocation } from 'react-router-dom';
+
 const BookingManagement: React.FC = () => {
+    const { user } = useAuth();
+    const location = useLocation<{ bookingId?: string }>();
     const [bookings, setBookings] = useState<any[]>([]);
     const [filter, setFilter] = useState<string>('all');
     const [searchText, setSearchText] = useState('');
@@ -46,7 +51,21 @@ const BookingManagement: React.FC = () => {
         loadBookings();
     }, [filter]);
 
+    // Check for passed bookingId from dashboard
+    useEffect(() => {
+        if (location.state?.bookingId && bookings.length > 0) {
+            const booking = bookings.find(b => b.id === location.state.bookingId);
+            if (booking) {
+                setSelectedBooking(booking);
+                setShowDetails(true);
+                // Clean up state to prevent reopening on reload (optional but good practice)
+                // history.replace({ ...location, state: undefined }); 
+            }
+        }
+    }, [location.state, bookings]);
+
     const loadBookings = () => {
+        // ... existing loadBookings logic ...
         let allBookings = dataService.getBookings();
 
         if (filter !== 'all') {
@@ -56,7 +75,8 @@ const BookingManagement: React.FC = () => {
         const enrichedBookings = allBookings.map(b => ({
             ...b,
             resort: dataService.getResort(b.resortId),
-            room: dataService.getRoomType(b.roomTypeId)
+            room: dataService.getRoomType(b.roomTypeId),
+            guest: dataService.getUser(b.userId)
         }));
 
         setBookings(enrichedBookings);
@@ -68,10 +88,33 @@ const BookingManagement: React.FC = () => {
     };
 
     const handleStatusChange = (bookingId: string, newStatus: string) => {
-        dataService.updateBooking(bookingId, { status: newStatus as any });
+        const updates: Partial<Booking> = { status: newStatus as any };
+
+        if (user) {
+            if (newStatus === 'confirmed') {
+                updates.confirmedBy = user.name;
+            } else if (newStatus === 'checked-in') {
+                updates.checkedInBy = user.name;
+            } else if (newStatus === 'completed') {
+                updates.checkedOutBy = user.name;
+            }
+        }
+
+        const updated = dataService.updateBooking(bookingId, updates);
         loadBookings();
         setShowActions(false);
-        setSelectedBooking(null);
+
+        if (showDetails && updated) {
+            const enriched = {
+                ...updated,
+                resort: dataService.getResort(updated!.resortId),
+                room: dataService.getRoomType(updated!.roomTypeId),
+                guest: dataService.getUser(updated!.userId)
+            };
+            setSelectedBooking(enriched);
+        } else {
+            setSelectedBooking(null);
+        }
     };
 
     const getStatusColor = (status: string) => {
@@ -250,6 +293,22 @@ const BookingManagement: React.FC = () => {
                                     <IonBadge color={selectedBooking.paymentStatus === 'paid' ? 'success' : 'warning'}>
                                         {selectedBooking.paymentStatus}
                                     </IonBadge>
+                                </div>
+
+                                <div className="details-section">
+                                    <h3>Guest Information</h3>
+                                    <div className="detail-row">
+                                        <span>Name</span>
+                                        <strong>{selectedBooking.guest?.name || 'Unknown'}</strong>
+                                    </div>
+                                    <div className="detail-row">
+                                        <span>Email</span>
+                                        <strong>{selectedBooking.guest?.email || 'N/A'}</strong>
+                                    </div>
+                                    <div className="detail-row">
+                                        <span>Phone</span>
+                                        <strong>{selectedBooking.guest?.phone || 'N/A'}</strong>
+                                    </div>
                                 </div>
                             </div>
 

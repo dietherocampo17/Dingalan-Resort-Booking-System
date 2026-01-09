@@ -46,7 +46,7 @@ const EmployeeLayout: React.FC = () => {
 
     return (
         <IonSplitPane contentId="employee-main" when="md">
-            <IonMenu contentId="employee-main" type="overlay">
+            <IonMenu contentId="employee-main" type="overlay" className="employee-menu-drawer">
                 <IonHeader>
                     <IonToolbar color="primary">
                         <IonTitle>Staff Portal</IonTitle>

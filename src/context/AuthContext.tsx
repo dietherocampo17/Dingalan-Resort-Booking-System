@@ -9,6 +9,8 @@ interface AuthContextType {
     signup: (name: string, email: string, password: string) => Promise<boolean>;
     logout: () => void;
     switchRole: (role: UserRole) => void;
+    updateProfile: (data: Partial<User>) => Promise<void>;
+    toggleFavorite: (resortId: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -38,7 +40,8 @@ const DEMO_USERS: Record<string, User & { password: string }> = {
         role: 'client',
         phone: '+1234567890',
         password: 'guest123',
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        favorites: ['resort-1', 'resort-3']
     }
 };
 
@@ -102,7 +105,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             name,
             role: 'client',
             password,
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
+            favorites: []
         };
 
         users.push(newUser);
@@ -128,6 +132,38 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
     };
 
+    const updateProfile = async (data: Partial<User>) => {
+        if (!user) return;
+
+        const updatedUser = { ...user, ...data };
+        setUser(updatedUser);
+        localStorage.setItem('resort_user', JSON.stringify(updatedUser));
+
+        // Update in "database" (localStorage resort_users)
+        const users = JSON.parse(localStorage.getItem('resort_users') || '[]');
+        const idx = users.findIndex((u: User) => u.id === user.id);
+        if (idx >= 0) {
+            users[idx] = { ...users[idx], ...data };
+            localStorage.setItem('resort_users', JSON.stringify(users));
+        }
+    };
+
+    const toggleFavorite = async (resortId: string) => {
+        if (!user) return;
+
+        const currentFavorites = user.favorites || [];
+        const isFavorite = currentFavorites.includes(resortId);
+        let newFavorites;
+
+        if (isFavorite) {
+            newFavorites = currentFavorites.filter(id => id !== resortId);
+        } else {
+            newFavorites = [...currentFavorites, resortId];
+        }
+
+        await updateProfile({ favorites: newFavorites });
+    };
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -136,7 +172,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             login,
             signup,
             logout,
-            switchRole
+            switchRole,
+            updateProfile,
+            toggleFavorite
         }}>
             {children}
         </AuthContext.Provider>

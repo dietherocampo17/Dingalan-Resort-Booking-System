@@ -265,6 +265,34 @@ const INITIAL_BOOKINGS: Booking[] = [
     }
 ];
 
+const INITIAL_USERS: User[] = [
+    {
+        id: 'user-1',
+        name: 'Maria Santos',
+        email: 'employee@resort.com',
+        role: 'employee',
+        status: 'active',
+        createdAt: '2024-01-01T00:00:00Z'
+    },
+    {
+        id: 'user-2',
+        name: 'Carlos Reyes',
+        email: 'manager@resort.com',
+        role: 'admin',
+        status: 'active',
+        createdAt: '2024-01-01T00:00:00Z',
+        favorites: []
+    },
+    {
+        id: 'user-3',
+        name: 'Jose Rizal',
+        email: 'maintenance@resort.com',
+        role: 'employee',
+        status: 'inactive',
+        createdAt: '2024-01-01T00:00:00Z'
+    }
+];
+
 // Data service class
 class MockDataService {
     private getStorage<T>(key: string, initial: T[]): T[] {
@@ -371,6 +399,11 @@ class MockDataService {
         this.setStorage('dingalan_rooms', rooms);
     }
 
+    deleteRoomType(id: string): void {
+        const rooms = this.getRoomTypes().filter(r => r.id !== id);
+        this.setStorage('dingalan_rooms', rooms);
+    }
+
     // === Bookings ===
     getBookings(filters?: {
         userId?: string;
@@ -452,6 +485,34 @@ class MockDataService {
         return newReview;
     }
 
+    deleteReview(id: string): void {
+        const reviews = this.getReviews();
+        const reviewToDelete = reviews.find(r => r.id === id);
+
+        if (reviewToDelete) {
+            const updatedReviews = reviews.filter(r => r.id !== id);
+            this.setStorage('dingalan_reviews', updatedReviews);
+            this.updateResortRating(reviewToDelete.resortId);
+        }
+    }
+
+    updateReview(id: string, reply: string): Review | undefined {
+        const reviews = this.getReviews();
+        const idx = reviews.findIndex(r => r.id === id);
+        if (idx >= 0) {
+            reviews[idx] = {
+                ...reviews[idx],
+                reply: {
+                    comment: reply,
+                    createdAt: new Date().toISOString()
+                }
+            };
+            this.setStorage('dingalan_reviews', reviews);
+            return reviews[idx];
+        }
+        return undefined;
+    }
+
     private updateResortRating(resortId: string): void {
         const reviews = this.getReviews(resortId);
         if (reviews.length > 0) {
@@ -481,7 +542,27 @@ class MockDataService {
 
     // === Users (for admin) ===
     getUsers(): User[] {
-        return this.getStorage('dingalan_users', []);
+        return this.getStorage('dingalan_users', INITIAL_USERS);
+    }
+
+    getUser(id: string): User | undefined {
+        return this.getUsers().find(u => u.id === id);
+    }
+
+    saveUser(user: User): void {
+        const users = this.getUsers();
+        const idx = users.findIndex(u => u.id === user.id);
+        if (idx >= 0) {
+            users[idx] = user;
+        } else {
+            users.push(user);
+        }
+        this.setStorage('dingalan_users', users);
+    }
+
+    deleteUser(id: string): void {
+        const users = this.getUsers().filter(u => u.id !== id);
+        this.setStorage('dingalan_users', users);
     }
 
     // === Analytics ===
@@ -507,6 +588,48 @@ class MockDataService {
             pendingBookings: bookings.filter(b => b.status === 'pending').length,
             todayCheckIns: bookings.filter(b => b.checkInDate === today && b.status === 'confirmed').length
         };
+    }
+    // === Payment Configurations ===
+    getPaymentConfigs(): any[] {
+        const defaultConfigs = [
+            {
+                id: 'gcash',
+                name: 'GCash',
+                description: 'Pay via GCash',
+                accountName: 'Dingalan Resort',
+                accountNumber: '0917 123 4567',
+                isEnabled: true,
+                instructions: 'Please send the exact amount to the GCash number provided. Use your Booking ID as the reference number.'
+            },
+            {
+                id: 'paymaya',
+                name: 'Maya',
+                description: 'Pay via Maya',
+                accountName: 'Dingalan Resort',
+                accountNumber: '0918 123 4567',
+                isEnabled: true,
+                instructions: 'Scan the QR code or send to the mobile number. Keep a screenshot of your payment.'
+            },
+            {
+                id: 'bank',
+                name: 'Bank Transfer',
+                description: 'Direct Bank Transfer',
+                accountName: 'Dingalan Resorts Inc.',
+                accountNumber: 'BDO 123-456-7890',
+                isEnabled: true,
+                instructions: 'Transfer to the BDO account. Email the deposit slip to payments@dingalanresorts.com'
+            }
+        ];
+        return this.getStorage('dingalan_payment_configs', defaultConfigs);
+    }
+
+    savePaymentConfig(config: any): void {
+        const configs = this.getPaymentConfigs();
+        const idx = configs.findIndex((c: any) => c.id === config.id);
+        if (idx >= 0) {
+            configs[idx] = config;
+            this.setStorage('dingalan_payment_configs', configs);
+        }
     }
 }
 

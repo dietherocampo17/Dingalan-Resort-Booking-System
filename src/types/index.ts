@@ -10,6 +10,8 @@ export interface User {
   phone?: string;
   avatar?: string;
   createdAt: string;
+  status?: 'active' | 'inactive';
+  favorites?: string[]; // Array of resort IDs
 }
 
 // Resort types
@@ -73,6 +75,9 @@ export interface Booking {
   notes?: string;
   createdAt: string;
   updatedAt: string;
+  confirmedBy?: string;
+  checkedInBy?: string;
+  checkedOutBy?: string;
 }
 
 // Review types
@@ -84,6 +89,10 @@ export interface Review {
   rating: number;
   comment: string;
   createdAt: string;
+  reply?: {
+    comment: string;
+    createdAt: string;
+  };
 }
 
 // Availability
@@ -92,4 +101,16 @@ export interface Availability {
   date: string;
   available: number;
   price: number;
+}
+
+// Payment Configuration
+export interface PaymentMethodConfig {
+  id: string; // 'gcash', 'paymaya', 'bank'
+  name: string;
+  description: string;
+  accountName: string;
+  accountNumber: string;
+  isEnabled: boolean;
+  qrCode?: string; // URL or base64
+  instructions?: string;
 }

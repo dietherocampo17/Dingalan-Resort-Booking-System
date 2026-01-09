@@ -1,5 +1,5 @@
 .availability-management {
-    --background: var(--ion-background-color);
+    --background: var(--ion-background-color) !important;
 }
 
 .page-header {
@@ -22,79 +22,273 @@
     font-size: 1.1rem;
 }
 
+.resorts-container {
+    padding-bottom: 40px;
+}
+
 .resort-card {
     margin: 24px;
-    border-radius: 20px;
-    background: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    --background: white !important;
+    background: white !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
     border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
 }
 
 .resort-card ion-card-header {
-    background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
-    padding: 20px 24px;
+    --background: white !important;
+    background: white !important;
+    padding: 24px 24px 16px;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .resort-card ion-card-title {
-    color: white;
-    font-size: 1.3rem;
+    color: var(--ion-color-primary);
+    font-size: 1.25rem;
     font-weight: 700;
 }
 
-.resort-card ion-list {
-    padding: 12px 0;
-    background: transparent;
+.resort-card ion-card-content {
+    --background: white !important;
+    background: white !important;
+    padding: 0;
 }
 
-.room-item {
-    --background: transparent;
-    --padding-start: 24px;
-    --padding-end: 24px;
-    --border-color: #f3f4f6;
-    margin-bottom: 8px;
+/* Room Grid Layout */
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 0 4px;
 }
 
-.room-info h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin: 0 0 8px;
-    color: var(--ion-text-color);
-}
-
-.room-meta {
+.room-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
     display: flex;
-    align-items: center;
-    gap: 16px;
-    color: var(--ion-color-medium);
-    font-size: 0.95rem;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
 }
 
-.room-meta span {
+.room-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.room-header {
+    margin-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 12px;
+}
+
+.room-header h3 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ion-color-primary);
+}
+
+.room-details {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.info-badge {
     display: flex;
     align-items: center;
     gap: 6px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
 }
 
-.room-meta ion-icon {
-    color: var(--ion-color-primary);
+.info-badge.capacity {
+    background: #f8fafc;
+    color: #64748b;
+    border: 1px solid #e2e8f0;
+}
+
+.info-badge.price {
+    background: #f0f9ff;
+    color: #0284c7;
+    border: 1px solid #e0f2fe;
+    font-weight: 600;
+}
+
+.info-badge ion-icon {
     font-size: 1.1rem;
 }
 
-.room-actions {
+.room-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 16px;
+}
+
+.status-badge {
     display: flex;
     align-items: center;
-    gap: 12px;
-}
-
-.room-actions ion-badge {
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-weight: 600;
+    gap: 6px;
     font-size: 0.85rem;
+    font-weight: 600;
 }
 
-.room-actions ion-button {
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+.status-badge.available {
+    color: #16a34a;
+}
+
+.status-badge.available .status-dot {
+    background: #16a34a;
+    box-shadow: 0 0 0 3px #dcfce7;
+}
+
+.status-badge.out {
+    color: #dc2626;
+}
+
+.status-badge.out .status-dot {
+    background: #dc2626;
+    box-shadow: 0 0 0 3px #fee2e2;
+}
+
+.action-btn {
     --border-radius: 8px;
+    margin: 0;
+    height: 36px;
+    font-size: 0.85rem;
     font-weight: 600;
-    --border-width: 1.5px;
+    --box-shadow: none;
+}
+
+/* ... existing styles ... */
+
+.dashboard-grid {
+    padding: 0 16px;
+    margin-bottom: 16px;
+}
+
+.stat-card {
+    margin: 8px;
+    border-radius: 16px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.stat-card ion-card-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 24px !important;
+}
+
+.stat-icon-wrapper {
+    background: rgba(255, 255, 255, 0.2);
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+}
+
+.stat-info h3 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    line-height: 1.2;
+}
+
+.search-container {
+    padding: 8px 24px;
+    margin-bottom: 8px;
+}
+
+.custom-search {
+    --background: white;
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --border-radius: 12px;
+    padding: 0;
+    border-radius: 12px;
+}
+
+/* Fix searchbar input height */
+.custom-search .searchbar-input-container {
+    height: 50px;
+}
+
+/* ... existing styles ... */
+
+.edit-form {
+    padding: 0;
+    color: var(--ion-text-color);
+}
+
+/* ... rest of the file ... */
+
+.modal-content-container {
+    height: 100%;
+    overflow-y: auto;
+    background: white;
+}
+
+.edit-form h3 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    color: var(--ion-color-primary);
+    font-weight: 700;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.custom-input {
+    --highlight-color-focused: var(--ion-color-primary);
+    --border-color: #cbd5e1;
+    --border-radius: 8px;
+    --background: #f8fafc;
+    color: #1e293b;
+    --color: #1e293b;
+    font-weight: 500;
+}
+
+/* Ensure label text is visible */
+.custom-input::part(label) {
+    color: #475569;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.save-btn {
+    margin-top: 32px;
+    --border-radius: 12px;
+    font-weight: 600;
+    --background: var(--ion-color-primary);
+    --color: white;
 }

@@ -1,9 +1,28 @@
-import React from 'react';
-import { IonContent, IonList, IonItem, IonLabel, IonToggle, IonInput, IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/react';
-import { saveOutline } from 'ionicons/icons';
+import React, { useState, useEffect } from 'react';
+import { IonContent, IonList, IonItem, IonLabel, IonToggle, IonInput, IonButton, IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonBadge } from '@ionic/react';
+import { saveOutline, createOutline, settingsOutline } from 'ionicons/icons';
+import { dataService } from '../../services/MockDataService';
+import { PaymentMethodConfig } from '../../types';
+import PaymentConfigModal from './components/PaymentConfigModal';
 import './SystemSettings.css';
 
 const SystemSettings: React.FC = () => {
+    const [configs, setConfigs] = useState<PaymentMethodConfig[]>([]);
+    const [selectedConfig, setSelectedConfig] = useState<PaymentMethodConfig | null>(null);
+
+    useEffect(() => {
+        loadConfigs();
+    }, []);
+
+    const loadConfigs = () => {
+        setConfigs(dataService.getPaymentConfigs());
+    };
+
+    const handleSaveConfig = (config: PaymentMethodConfig) => {
+        dataService.savePaymentConfig(config);
+        loadConfigs();
+    };
+
     return (
         <IonContent className="system-settings">
             <div className="page-header">
@@ -23,12 +42,21 @@ const SystemSettings: React.FC = () => {
             </IonCard>
 
             <IonCard className="settings-card">
-                <IonCardHeader><IonCardTitle>Payment Settings</IonCardTitle></IonCardHeader>
+                <IonCardHeader><IonCardTitle>Payment Configuration</IonCardTitle></IonCardHeader>
                 <IonCardContent>
                     <IonList lines="none">
-                        <IonItem><IonLabel>Service Fee (%)</IonLabel><IonInput type="number" value="10" className="input-end" /></IonItem>
-                        <IonItem><IonLabel>Tax Rate (%)</IonLabel><IonInput type="number" value="12" className="input-end" /></IonItem>
-                        <IonItem><IonLabel>Enable Partial Payment</IonLabel><IonToggle slot="end" checked /></IonItem>
+                        {configs.map(config => (
+                            <IonItem key={config.id} button onClick={() => setSelectedConfig(config)}>
+                                <IonLabel>
+                                    <h3>{config.name}</h3>
+                                    <p>{config.accountName} - {config.accountNumber}</p>
+                                </IonLabel>
+                                <IonBadge slot="end" color={config.isEnabled ? 'success' : 'medium'}>
+                                    {config.isEnabled ? 'Enabled' : 'Disabled'}
+                                </IonBadge>
+                                <IonIcon icon={settingsOutline} slot="end" color="medium" />
+                            </IonItem>
+                        ))}
                     </IonList>
                 </IonCardContent>
             </IonCard>
@@ -44,8 +72,17 @@ const SystemSettings: React.FC = () => {
             </IonCard>
 
             <div className="save-section">
-                <IonButton expand="block"><IonIcon icon={saveOutline} slot="start" />Save Settings</IonButton>
+                <IonButton expand="block"><IonIcon icon={saveOutline} slot="start" />Save Other Settings</IonButton>
             </div>
+
+            {selectedConfig && (
+                <PaymentConfigModal
+                    isOpen={!!selectedConfig}
+                    config={selectedConfig}
+                    onDismiss={() => setSelectedConfig(null)}
+                    onSave={handleSaveConfig}
+                />
+            )}
         </IonContent>
     );
 };

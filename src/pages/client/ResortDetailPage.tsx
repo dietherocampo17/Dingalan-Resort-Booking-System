@@ -25,7 +25,9 @@ import {
     IonList,
     IonAvatar,
     IonText,
-    IonFooter
+    IonFooter,
+    IonModal,
+    IonTextarea
 } from '@ionic/react';
 import {
     star,
@@ -41,7 +43,8 @@ import {
     checkmarkCircle,
     informationCircle,
     people,
-    bed
+    bed,
+    close
 } from 'ionicons/icons';
 import { useParams, useHistory } from 'react-router-dom';
 import { dataService } from '../../services/MockDataService';
@@ -52,7 +55,7 @@ import './ResortDetailPage.css';
 const ResortDetailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const history = useHistory();
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, user } = useAuth();
 
     const [resort, setResort] = useState<Resort | null>(null);
     const [rooms, setRooms] = useState<RoomType[]>([]);
@@ -60,6 +63,11 @@ const ResortDetailPage: React.FC = () => {
     const [activeTab, setActiveTab] = useState('rooms');
     const [isFavorite, setIsFavorite] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
+    const [newReviewRating, setNewReviewRating] = useState(5);
+    const [newReviewComment, setNewReviewComment] = useState('');
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         const resortData = dataService.getResort(id);
@@ -70,6 +78,55 @@ const ResortDetailPage: React.FC = () => {
         }
     }, [id]);
 
+    const handleBookRoom = (roomId: string) => {
+        if (!resort) return;
+        if (!isAuthenticated) {
+            history.push('/auth/login?redirect=' + encodeURIComponent(`/client/book/${resort.id}/${roomId}`));
+            return;
+        }
+        history.push(`/client/book/${resort.id}/${roomId}`);
+    };
+
+    const handleWriteReview = () => {
+        if (!resort) return;
+        if (!isAuthenticated) {
+            history.push('/auth/login?redirect=' + encodeURIComponent(`/client/resort/${id}`));
+            return;
+        }
+        setIsReviewModalOpen(true);
+    };
+
+    const handleSubmitReview = () => {
+        if (!newReviewComment.trim()) return;
+
+        setIsSubmitting(true);
+        // Simulate network delay
+        setTimeout(() => {
+            if (user && resort) {
+                const newReview = {
+                    resortId: resort.id,
+                    userId: user.id || 'guest',
+                    userName: user.name || 'Guest User',
+                    rating: newReviewRating,
+                    comment: newReviewComment
+                };
+
+                dataService.addReview(newReview);
+
+                // Refresh data
+                setReviews(dataService.getReviews(resort.id));
+                const updatedResort = dataService.getResort(resort.id);
+                if (updatedResort) setResort(updatedResort);
+
+                // Reset form
+                setNewReviewComment('');
+                setNewReviewRating(5);
+                setIsReviewModalOpen(false);
+            }
+            setIsSubmitting(false);
+        }, 800);
+    };
+
     if (!resort) {
         return (
             <IonPage>
@@ -79,14 +136,6 @@ const ResortDetailPage: React.FC = () => {
             </IonPage>
         );
     }
-
-    const handleBookRoom = (roomId: string) => {
-        if (!isAuthenticated) {
-            history.push('/auth/login?redirect=' + encodeURIComponent(`/client/book/${resort.id}/${roomId}`));
-            return;
-        }
-        history.push(`/client/book/${resort.id}/${roomId}`);
-    };
 
     return (
         <IonPage>
@@ -111,17 +160,19 @@ const ResortDetailPage: React.FC = () => {
                 {/* Image Gallery */}
                 <div className="image-gallery">
                     <img src={resort.images[currentImageIndex]} alt={resort.name} className="main-image" />
-                    <div className="image-thumbnails">
-                        {resort.images.map((img, idx) => (
-                            <img
-                                key={idx}
-                                src={img}
-                                alt={`${resort.name} ${idx + 1}`}
-                                className={`thumbnail ${idx === currentImageIndex ? 'active' : ''}`}
-                                onClick={() => setCurrentImageIndex(idx)}
-                            />
-                        ))}
-                    </div>
+                    {resort.images.length > 1 && (
+                        <div className="image-thumbnails">
+                            {resort.images.map((img, idx) => (
+                                <img
+                                    key={idx}
+                                    src={img}
+                                    alt={`${resort.name} ${idx + 1}`}
+                                    className={`thumbnail ${idx === currentImageIndex ? 'active' : ''}`}
+                                    onClick={() => setCurrentImageIndex(idx)}
+                                />
+                            ))}
+                        </div>
+                    )}
                     {resort.isVerified && (
                         <IonBadge className="verified-badge">
                             <IonIcon icon={checkmarkCircle} /> Verified
@@ -136,54 +187,66 @@ const ResortDetailPage: React.FC = () => {
                         <span className="location">
                             <IonIcon icon={location} /> {resort.location.city}, {resort.location.province}
                         </span>
-                        <span className="rating">
-                            <IonIcon icon={star} color="warning" /> {resort.rating}
-                            <span className="review-count">({resort.reviewCount} reviews)</span>
-                        </span>
+                        {resort.rating > 0 && (
+                            <span className="rating">
+                                <IonIcon icon={star} color="warning" /> {resort.rating}
+                                {resort.reviewCount > 0 && <span className="review-count">({resort.reviewCount} reviews)</span>}
+                            </span>
+                        )}
                     </div>
-                    <p className="description">{resort.description}</p>
+                    {resort.description && <p className="description">{resort.description}</p>}
                 </div>
 
                 {/* Amenities */}
-                <div className="section amenities-section">
-                    <h2>Amenities</h2>
-                    <div className="amenities-grid">
-                        {resort.amenities.map((amenity) => (
-                            <IonChip key={amenity} color="primary" outline>
-                                {amenity}
-                            </IonChip>
-                        ))}
+                {resort.amenities && resort.amenities.length > 0 && (
+                    <div className="section amenities-section">
+                        <h2>Amenities</h2>
+                        <div className="amenities-grid">
+                            {resort.amenities.map((amenity) => (
+                                <IonChip key={amenity} color="primary" outline>
+                                    {amenity}
+                                </IonChip>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* Policies */}
-                <div className="section policies-section">
-                    <h2>Policies</h2>
-                    <IonList lines="none">
-                        <IonItem>
-                            <IonIcon icon={time} slot="start" color="primary" />
-                            <IonLabel>
-                                <h3>Check-in / Check-out</h3>
-                                <p>{resort.policies.checkIn} - {resort.policies.checkOut}</p>
-                            </IonLabel>
-                        </IonItem>
-                        <IonItem>
-                            <IonIcon icon={informationCircle} slot="start" color="primary" />
-                            <IonLabel>
-                                <h3>Cancellation</h3>
-                                <p>{resort.policies.cancellation}</p>
-                            </IonLabel>
-                        </IonItem>
-                    </IonList>
-                    <div className="rules">
-                        <h4>House Rules</h4>
-                        <ul>
-                            {resort.policies.rules.map((rule, idx) => (
-                                <li key={idx}>{rule}</li>
-                            ))}
-                        </ul>
+                {resort.policies && (
+                    <div className="section policies-section">
+                        <h2>Policies</h2>
+                        <IonList lines="none">
+                            {resort.policies.checkIn && resort.policies.checkOut && (
+                                <IonItem>
+                                    <IonIcon icon={time} slot="start" color="primary" />
+                                    <IonLabel>
+                                        <h3>Check-in / Check-out</h3>
+                                        <p>{resort.policies.checkIn} - {resort.policies.checkOut}</p>
+                                    </IonLabel>
+                                </IonItem>
+                            )}
+                            {resort.policies.cancellation && (
+                                <IonItem>
+                                    <IonIcon icon={informationCircle} slot="start" color="primary" />
+                                    <IonLabel>
+                                        <h3>Cancellation</h3>
+                                        <p>{resort.policies.cancellation}</p>
+                                    </IonLabel>
+                                </IonItem>
+                            )}
+                        </IonList>
+                        {resort.policies.rules && resort.policies.rules.length > 0 && (
+                            <div className="rules">
+                                <h4>House Rules</h4>
+                                <ul>
+                                    {resort.policies.rules.map((rule, idx) => (
+                                        <li key={idx}>{rule}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
-                </div>
+                )}
 
                 {/* Tabs: Rooms / Reviews */}
                 <IonSegment value={activeTab} onIonChange={e => setActiveTab(e.detail.value as string)}>
@@ -198,49 +261,71 @@ const ResortDetailPage: React.FC = () => {
                 {/* Rooms Tab */}
                 {activeTab === 'rooms' && (
                     <div className="rooms-section">
-                        {rooms.map(room => (
-                            <IonCard key={room.id} className="room-card">
-                                <img src={room.images[0]} alt={room.name} />
-                                <IonCardHeader>
-                                    <IonCardTitle>{room.name}</IonCardTitle>
-                                </IonCardHeader>
-                                <IonCardContent>
-                                    <p className="room-description">{room.description}</p>
-                                    <div className="room-details">
-                                        <span><IonIcon icon={people} /> Up to {room.capacity} guests</span>
-                                        <span><IonIcon icon={bed} /> {room.quantity} available</span>
-                                    </div>
-                                    <div className="room-amenities">
-                                        {room.amenities.slice(0, 4).map(a => (
-                                            <IonChip key={a} color="light">{a}</IonChip>
-                                        ))}
-                                    </div>
-                                    <div className="inclusions">
-                                        <h5>Inclusions:</h5>
-                                        <ul>
-                                            {room.inclusions.map((inc, idx) => (
-                                                <li key={idx}><IonIcon icon={checkmarkCircle} color="success" /> {inc}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                    <div className="room-footer">
-                                        <div className="price">
-                                            <span className="amount">₱{room.pricePerNight.toLocaleString()}</span>
-                                            <span className="per">/night</span>
+                        {rooms.length === 0 ? (
+                            <div className="no-data-message">
+                                <p>No rooms available at the moment.</p>
+                            </div>
+                        ) : (
+                            rooms.map(room => (
+                                <IonCard key={room.id} className="room-card">
+                                    {room.images && room.images.length > 0 && (
+                                        <img src={room.images[0]} alt={room.name} />
+                                    )}
+                                    <IonCardHeader>
+                                        <IonCardTitle>{room.name}</IonCardTitle>
+                                    </IonCardHeader>
+                                    <IonCardContent>
+                                        {room.description && <p className="room-description">{room.description}</p>}
+                                        <div className="room-details">
+                                            {room.capacity > 0 && (
+                                                <span><IonIcon icon={people} /> Up to {room.capacity} guests</span>
+                                            )}
+                                            {room.quantity > 0 && (
+                                                <span><IonIcon icon={bed} /> {room.quantity} available</span>
+                                            )}
                                         </div>
-                                        <IonButton onClick={() => handleBookRoom(room.id)}>
-                                            Book Now
-                                        </IonButton>
-                                    </div>
-                                </IonCardContent>
-                            </IonCard>
-                        ))}
+                                        {room.amenities && room.amenities.length > 0 && (
+                                            <div className="room-amenities">
+                                                {room.amenities.slice(0, 4).map(a => (
+                                                    <IonChip key={a} color="primary" outline>{a}</IonChip>
+                                                ))}
+                                            </div>
+                                        )}
+                                        {room.inclusions && room.inclusions.length > 0 && (
+                                            <div className="inclusions">
+                                                <h5>Inclusions:</h5>
+                                                <ul>
+                                                    {room.inclusions.map((inc, idx) => (
+                                                        <li key={idx}><IonIcon icon={checkmarkCircle} color="success" /> {inc}</li>
+                                                    ))}
+                                                </ul>
+                                            </div>
+                                        )}
+                                        <div className="room-footer">
+                                            <div className="price">
+                                                <span className="amount">₱{room.pricePerNight.toLocaleString()}</span>
+                                                <span className="per">/night</span>
+                                            </div>
+                                            <IonButton onClick={() => handleBookRoom(room.id)}>
+                                                Book Now
+                                            </IonButton>
+                                        </div>
+                                    </IonCardContent>
+                                </IonCard>
+                            ))
+                        )}
                     </div>
                 )}
 
                 {/* Reviews Tab */}
                 {activeTab === 'reviews' && (
                     <div className="reviews-section">
+                        <div className="reviews-header-action">
+                            <IonButton onClick={handleWriteReview} fill="outline" className="write-review-btn">
+                                <IonIcon slot="start" icon={star} />
+                                Write a Review
+                            </IonButton>
+                        </div>
                         {reviews.length === 0 ? (
                             <div className="no-reviews">
                                 <p>No reviews yet. Be the first to review!</p>
@@ -267,6 +352,48 @@ const ResortDetailPage: React.FC = () => {
                         )}
                     </div>
                 )}
+
+                {/* Review Modal */}
+                <IonModal isOpen={isReviewModalOpen} onDidDismiss={() => setIsReviewModalOpen(false)} className="review-modal">
+                    <div className="modal-container">
+                        <div className="modal-header">
+                            <h2>Write a Review</h2>
+                            <IonButton fill="clear" onClick={() => setIsReviewModalOpen(false)}>
+                                <IonIcon icon={close} />
+                            </IonButton>
+                        </div>
+                        <div className="modal-body">
+                            <div className="rating-select">
+                                <p>How would you rate your experience?</p>
+                                <div className="stars">
+                                    {[1, 2, 3, 4, 5].map((starVal) => (
+                                        <IonIcon
+                                            key={starVal}
+                                            icon={star}
+                                            className={starVal <= newReviewRating ? 'star-filled' : 'star-empty'}
+                                            onClick={() => setNewReviewRating(starVal)}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="comment-input">
+                                <label>Tell us more about your stay:</label>
+                                <textarea
+                                    className="native-textarea"
+                                    rows={5}
+                                    placeholder="Share details of your own experience at this place"
+                                    value={newReviewComment}
+                                    onChange={(e) => setNewReviewComment(e.target.value)}
+                                ></textarea>
+                            </div>
+                        </div>
+                        <div className="modal-footer">
+                            <IonButton expand="block" onClick={handleSubmitReview} disabled={!newReviewComment.trim() || isSubmitting}>
+                                {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                            </IonButton>
+                        </div>
+                    </div>
+                </IonModal>
             </IonContent>
         </IonPage>
     );

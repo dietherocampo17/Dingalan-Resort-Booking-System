@@ -27,10 +27,12 @@ import {
     logOutOutline,
     alertCircleOutline
 } from 'ionicons/icons';
+import { useHistory } from 'react-router-dom';
 import { dataService } from '../../services/MockDataService';
 import './EmployeeDashboard.css';
 
 const EmployeeDashboard: React.FC = () => {
+    const history = useHistory();
     const [stats, setStats] = useState({
         todayCheckIns: 0,
         todayCheckOuts: 0,
@@ -95,7 +97,7 @@ const EmployeeDashboard: React.FC = () => {
             <IonGrid>
                 <IonRow>
                     <IonCol size="6">
-                        <IonCard className="stat-card check-in">
+                        <IonCard className="stat-card check-in" onClick={() => history.push('/employee/bookings')} style={{ cursor: 'pointer' }}>
                             <IonCardContent>
                                 <IonIcon icon={logInOutline} />
                                 <div className="stat-info">
@@ -106,7 +108,7 @@ const EmployeeDashboard: React.FC = () => {
                         </IonCard>
                     </IonCol>
                     <IonCol size="6">
-                        <IonCard className="stat-card check-out">
+                        <IonCard className="stat-card check-out" onClick={() => history.push('/employee/bookings')} style={{ cursor: 'pointer' }}>
                             <IonCardContent>
                                 <IonIcon icon={logOutOutline} />
                                 <div className="stat-info">
@@ -117,7 +119,7 @@ const EmployeeDashboard: React.FC = () => {
                         </IonCard>
                     </IonCol>
                     <IonCol size="6">
-                        <IonCard className="stat-card pending">
+                        <IonCard className="stat-card pending" onClick={() => history.push('/employee/bookings')} style={{ cursor: 'pointer' }}>
                             <IonCardContent>
                                 <IonIcon icon={alertCircleOutline} />
                                 <div className="stat-info">
@@ -128,7 +130,7 @@ const EmployeeDashboard: React.FC = () => {
                         </IonCard>
                     </IonCol>
                     <IonCol size="6">
-                        <IonCard className="stat-card total">
+                        <IonCard className="stat-card total" onClick={() => history.push('/employee/bookings')} style={{ cursor: 'pointer' }}>
                             <IonCardContent>
                                 <IonIcon icon={calendarOutline} />
                                 <div className="stat-info">
@@ -146,7 +148,13 @@ const EmployeeDashboard: React.FC = () => {
                 <h2>Recent Bookings</h2>
                 <IonList lines="none" className="booking-list">
                     {recentBookings.map(booking => (
-                        <IonItem key={booking.id} className="booking-item" button detail>
+                        <IonItem
+                            key={booking.id}
+                            className="booking-item"
+                            button
+                            detail
+                            onClick={() => history.push('/employee/bookings', { bookingId: booking.id })}
+                        >
                             <IonAvatar slot="start">
                                 <img src={booking.resort?.images[0] || 'https://via.placeholder.com/100'} alt="Resort" />
                             </IonAvatar>
@@ -173,19 +181,19 @@ const EmployeeDashboard: React.FC = () => {
                 <IonGrid>
                     <IonRow>
                         <IonCol size="4">
-                            <div className="quick-action" onClick={() => { }}>
+                            <div className="quick-action" onClick={() => history.push('/employee/bookings')}>
                                 <IonIcon icon={logInOutline} />
                                 <span>Check In</span>
                             </div>
                         </IonCol>
                         <IonCol size="4">
-                            <div className="quick-action" onClick={() => { }}>
+                            <div className="quick-action" onClick={() => history.push('/employee/bookings')}>
                                 <IonIcon icon={logOutOutline} />
                                 <span>Check Out</span>
                             </div>
                         </IonCol>
                         <IonCol size="4">
-                            <div className="quick-action" onClick={() => { }}>
+                            <div className="quick-action" onClick={() => history.push('/employee/availability')}>
                                 <IonIcon icon={peopleOutline} />
                                 <span>Walk-in</span>
                             </div>
