@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  name      String
+  role      String    @default("client") // guest, client, employee, admin
+  phone     String?
+  avatar    String?
+  status    String    @default("active") // active, inactive
+  favorites Json?     // Array of resort IDs
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  bookings  Booking[]
+  reviews   Review[]
+
+  @@map("users")
+}
+
+model Resort {
+  id          String   @id @default(uuid())
+  name        String
+  description String   @db.Text
+  location    Json     // { address, city, province, lat, lng }
+  images      Json     // Array of strings
+  amenities   Json     // Array of strings
+  rating      Float    @default(0)
+  reviewCount Int      @default(0)
+  priceRange  Json     // { min, max }
+  policies    Json     // { checkIn, checkOut, cancellation, rules }
+  isVerified  Boolean  @default(false)
+  status      String   @default("active")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  roomTypes RoomType[]
+  bookings  Booking[]
+  reviews   Review[]
+
+  @@map("resorts")
+}
+
+model RoomType {
+  id            String   @id @default(uuid())
+  resortId      String
+  name          String
+  description   String   @db.Text
+  capacity      Int
+  pricePerNight Float
+  inclusions    Json     // Array of strings
+  images        Json     // Array of strings
+  amenities     Json     // Array of strings
+  quantity      Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  resort   Resort    @relation(fields: [resortId], references: [id], onDelete: Cascade)
+  bookings Booking[]
+
+  @@map("room_types")
+}
+
+model Booking {
+  id            String   @id @default(uuid())
+  resortId      String
+  roomTypeId    String
+  userId        String
+  checkInDate   String
+  checkOutDate  String
+  guests        Int
+  totalPrice    Float
+  status        String   // pending, confirmed, checked-in, completed, cancelled
+  paymentStatus String   // pending, partial, paid, refunded
+  notes         String?  @db.Text
+  confirmedBy   String?
+  checkedInBy   String?
+  checkedOutBy  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  resort   Resort   @relation(fields: [resortId], references: [id])
+  roomType RoomType @relation(fields: [roomTypeId], references: [id])
+  user     User     @relation(fields: [userId], references: [id])
+
+  @@map("bookings")
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  resortId  String
+  userId    String
+  userName  String
+  rating    Int
+  comment   String   @db.Text
+  reply     Json?    // { comment, createdAt }
+  createdAt DateTime @default(now())
+
+  resort Resort @relation(fields: [resortId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("reviews")
+}
