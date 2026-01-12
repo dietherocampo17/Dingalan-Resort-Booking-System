@@ -3,7 +3,7 @@
     --background: #ffffff;
 }
 
-ion-menu {
+.employee-menu-drawer {
     --ion-background-color: white;
     border-right: 1px solid rgba(0, 0, 0, 0.05);
 }
