@@ -15,7 +15,9 @@
   },
   "homepage": "https://dietherocampo17.github.io/Dingalan-Resort-Booking-System",
   "dependencies": {
+    "@capacitor/android": "^8.0.0",
     "@capacitor/app": "8.0.0",
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/core": "8.0.0",
     "@capacitor/haptics": "8.0.0",
     "@capacitor/keyboard": "8.0.0",
