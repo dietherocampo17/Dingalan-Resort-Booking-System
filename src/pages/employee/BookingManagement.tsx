@@ -88,6 +88,24 @@ const BookingManagement: React.FC = () => {
     };
 
     const handleStatusChange = (bookingId: string, newStatus: string) => {
+        // Strict Availability Check
+        if (newStatus === 'confirmed') {
+            const bookingToCheck = bookings.find(b => b.id === bookingId);
+            if (bookingToCheck) {
+                const isAvailable = dataService.checkAvailability(
+                    bookingToCheck.roomTypeId,
+                    bookingToCheck.checkInDate,
+                    bookingToCheck.checkOutDate
+                );
+
+                if (!isAvailable) {
+                    // Using alert instead of toast for critical blocking
+                    alert('Cannot confirm booking: No available rooms for these dates!');
+                    return;
+                }
+            }
+        }
+
         const updates: Partial<Booking> = { status: newStatus as any };
 
         if (user) {

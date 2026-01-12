@@ -1,294 +1,285 @@
+/* Main Container */
 .availability-management {
-    --background: var(--ion-background-color) !important;
+    --background: #f8fafc;
+    /* Light modern background */
 }
 
+/* Page Header */
 .page-header {
-    background: transparent;
-    padding: 32px 24px 16px;
-    color: var(--ion-text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px 32px 24px;
+    background: white;
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .page-header h1 {
-    margin: 0 0 8px;
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
-    color: var(--ion-color-primary);
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 4px 0;
 }
 
 .page-header p {
+    font-size: 14px;
+    color: #64748b;
     margin: 0;
-    color: var(--ion-color-medium);
-    font-size: 1.1rem;
 }
 
-.resorts-container {
-    padding-bottom: 40px;
+.header-search {
+    width: 300px;
 }
 
-.resort-card {
-    margin: 24px;
-    border-radius: 16px;
-    --background: white !important;
-    background: white !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-}
-
-.resort-card ion-card-header {
-    --background: white !important;
-    background: white !important;
-    padding: 24px 24px 16px;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.resort-card ion-card-title {
-    color: var(--ion-color-primary);
-    font-size: 1.25rem;
-    font-weight: 700;
-}
-
-.resort-card ion-card-content {
-    --background: white !important;
-    background: white !important;
+.custom-search {
+    --background: #f1f5f9;
+    --border-radius: 8px;
+    --box-shadow: none;
     padding: 0;
 }
 
-/* Room Grid Layout */
-.room-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 0 4px;
+/* Stats Cards */
+.stats-grid {
+    padding: 24px 24px 8px;
 }
 
-.room-card {
+.avail-stat-card {
     background: white;
     border-radius: 16px;
     padding: 20px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-}
-
-.room-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.room-header {
-    margin-bottom: 16px;
-    border-bottom: 1px solid #f1f5f9;
-    padding-bottom: 12px;
-}
-
-.room-header h3 {
-    margin: 0;
-    font-size: 1.15rem;
-    font-weight: 700;
-    color: var(--ion-color-primary);
-}
-
-.room-details {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.info-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
-.info-badge.capacity {
-    background: #f8fafc;
-    color: #64748b;
-    border: 1px solid #e2e8f0;
-}
-
-.info-badge.price {
-    background: #f0f9ff;
-    color: #0284c7;
-    border: 1px solid #e0f2fe;
-    font-weight: 600;
-}
-
-.info-badge ion-icon {
-    font-size: 1.1rem;
-}
-
-.room-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
-    padding-top: 16px;
-}
-
-.status-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    font-weight: 600;
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-}
-
-.status-badge.available {
-    color: #16a34a;
-}
-
-.status-badge.available .status-dot {
-    background: #16a34a;
-    box-shadow: 0 0 0 3px #dcfce7;
-}
-
-.status-badge.out {
-    color: #dc2626;
-}
-
-.status-badge.out .status-dot {
-    background: #dc2626;
-    box-shadow: 0 0 0 3px #fee2e2;
-}
-
-.action-btn {
-    --border-radius: 8px;
-    margin: 0;
-    height: 36px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    --box-shadow: none;
-}
-
-/* ... existing styles ... */
-
-.dashboard-grid {
-    padding: 0 16px;
-    margin-bottom: 16px;
-}
-
-.stat-card {
-    margin: 8px;
-    border-radius: 16px;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-
-.stat-card ion-card-content {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 24px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s;
+    height: 100%;
+    /* Ensure consistent height in grid */
 }
 
-.stat-icon-wrapper {
-    background: rgba(255, 255, 255, 0.2);
-    width: 56px;
-    height: 56px;
+.avail-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
+    font-size: 24px;
+    /* Icon size */
+    flex-shrink: 0;
+}
+
+/* Using solid backgrounds for better visibility */
+.avail-stat-card.primary .stat-icon {
+    background: #3b82f6;
+    /* Blue 500 */
     color: white;
 }
 
-.stat-info h3 {
-    margin: 0;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+.avail-stat-card.secondary .stat-icon {
+    background: #10b981;
+    /* Emerald 500 */
+    color: white;
+}
+
+.avail-stat-card.danger .stat-icon {
+    background: #ef4444;
+    /* Red 500 */
+    color: white;
+}
+
+.avail-stat-card.success .stat-icon {
+    background: #10b981;
+    color: white;
+}
+
+.stat-icon ion-icon {
+    color: inherit;
+    /* Ensure icon takes the white color */
+}
+
+.stat-details h3 {
+    margin: 0 0 2px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
-.stat-value {
-    font-size: 2rem;
+.stat-details h2 {
+    margin: 0 0 2px;
+    font-size: 24px;
     font-weight: 800;
-    color: white;
+    color: #1e293b;
     line-height: 1.2;
 }
 
-.search-container {
-    padding: 8px 24px;
-    margin-bottom: 8px;
-}
-
-.custom-search {
-    --background: white;
-    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --border-radius: 12px;
-    padding: 0;
-    border-radius: 12px;
-}
-
-/* Fix searchbar input height */
-.custom-search .searchbar-input-container {
-    height: 50px;
-}
-
-/* ... existing styles ... */
-
-.edit-form {
-    padding: 0;
-    color: var(--ion-text-color);
-}
-
-/* ... rest of the file ... */
-
-.modal-content-container {
-    height: 100%;
-    overflow-y: auto;
-    background: white;
-}
-
-.edit-form h3 {
-    margin-top: 0;
-    margin-bottom: 24px;
-    color: var(--ion-color-primary);
-    font-weight: 700;
-}
-
-.form-group {
-    margin-bottom: 20px;
-}
-
-.custom-input {
-    --highlight-color-focused: var(--ion-color-primary);
-    --border-color: #cbd5e1;
-    --border-radius: 8px;
-    --background: #f8fafc;
-    color: #1e293b;
-    --color: #1e293b;
+.stat-details span {
+    font-size: 12px;
+    color: #94a3b8;
     font-weight: 500;
 }
 
-/* Ensure label text is visible */
-.custom-input::part(label) {
-    color: #475569;
-    font-weight: 600;
-    margin-bottom: 8px;
+/* Resort Section */
+.resorts-container {
+    padding: 0 32px 40px;
 }
 
-.save-btn {
-    margin-top: 32px;
-    --border-radius: 12px;
+.resort-section {
+    margin-bottom: 40px;
+}
+
+.resort-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.resort-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
+}
+
+.room-count-badge {
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 12px;
     font-weight: 600;
-    --background: var(--ion-color-primary);
-    --color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+/* Room Grid */
+.room-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+/* Modern Room Card */
+.room-card-modern {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 20px;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    transition: all 0.2s ease;
+}
+
+.room-card-modern:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
+}
+
+.room-card-modern.out-of-stock {
+    background: #f8fafc;
+    border-style: dashed;
+    opacity: 0.8;
+}
+
+.room-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.room-identity h3 {
+    margin: 0 0 12px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.room-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.mini-chip {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 600;
+    height: 24px;
+}
+
+/* Status Indicators */
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.status-indicator.green {
+    background: #f0fdf4;
+    color: #16a34a;
+}
+
+.status-indicator.orange {
+    background: #fff7ed;
+    color: #f97316;
+}
+
+.status-indicator.red {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.status-indicator ion-icon {
+    font-size: 14px;
+}
+
+/* Availability Section */
+.room-availability-section {
+    background: #f8fafc;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+}
+
+.availability-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 12px;
+}
+
+.availability-labels .label {
+    color: #64748b;
+    font-weight: 500;
+}
+
+.availability-labels .value {
+    color: #334155;
+}
+
+.availability-labels .value strong {
+    color: #0f172a;
+}
+
+.custom-progress {
+    height: 8px;
+    border-radius: 4px;
+    background: #e2e8f0;
+}
+
+.custom-progress::part(progress) {
+    border-radius: 4px;
 }
