@@ -1,0 +1,74 @@
+.walkin-page {
+    --background: #f8fafc;
+}
+
+.walkin-page ion-card {
+    margin: 16px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.walkin-page ion-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--ion-color-dark);
+}
+
+.walkin-page ion-item {
+    --background: transparent;
+    --padding-start: 0;
+    margin-bottom: 8px;
+}
+
+.walkin-page ion-label {
+    font-weight: 500;
+    color: var(--ion-color-medium);
+}
+
+.room-selection-item {
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 12px;
+    --padding-bottom: 12px;
+    margin: 8px 0;
+    border: 1px solid var(--ion-color-light-shade);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+}
+
+.room-selection-item.selected-room {
+    border-color: var(--ion-color-primary);
+    background: var(--ion-color-primary-contrast);
+    box-shadow: 0 0 0 2px var(--ion-color-primary);
+}
+
+.room-price {
+    font-weight: 700;
+    color: var(--ion-color-primary);
+    font-size: 1.1rem;
+}
+
+.total-section {
+    background: var(--ion-color-white);
+    padding: 24px;
+    margin-top: 24px;
+    border-top: 1px solid var(--ion-color-light-shade);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.total-label {
+    font-size: 1.1rem;
+    color: var(--ion-color-medium);
+}
+
+.total-amount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--ion-color-dark);
+}

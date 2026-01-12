@@ -193,7 +193,7 @@ const EmployeeDashboard: React.FC = () => {
                             </div>
                         </IonCol>
                         <IonCol size="4">
-                            <div className="quick-action" onClick={() => history.push('/employee/availability')}>
+                            <div className="quick-action" onClick={() => history.push('/employee/walkin')}>
                                 <IonIcon icon={peopleOutline} />
                                 <span>Walk-in</span>
                             </div>

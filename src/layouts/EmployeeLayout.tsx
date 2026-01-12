@@ -32,6 +32,7 @@ import EmployeeDashboard from '../pages/employee/EmployeeDashboard';
 import BookingManagement from '../pages/employee/BookingManagement';
 import GuestManagement from '../pages/employee/GuestManagement';
 import AvailabilityManagement from '../pages/employee/AvailabilityManagement';
+import WalkInPage from '../pages/employee/WalkInPage';
 
 const EmployeeLayout: React.FC = () => {
     const { logout } = useAuth();
@@ -88,6 +89,7 @@ const EmployeeLayout: React.FC = () => {
                 <Switch>
                     <Route exact path={`${path}/dashboard`} component={EmployeeDashboard} />
                     <Route exact path={`${path}/bookings`} component={BookingManagement} />
+                    <Route exact path={`${path}/walkin`} component={WalkInPage} />
                     <Route exact path={`${path}/availability`} component={AvailabilityManagement} />
                     <Route exact path={`${path}/guests`} component={GuestManagement} />
                     <Route exact path={path}>
