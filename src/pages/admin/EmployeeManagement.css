@@ -10,6 +10,7 @@
 .page-header h1 {
     margin: 0 0 4px;
     font-size: 1.5rem;
+    color: white !important;
 }
 
 .page-header p {

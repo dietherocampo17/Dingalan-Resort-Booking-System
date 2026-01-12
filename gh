@@ -1,0 +1,65 @@
+[33mcommit 941229f06d97b84ad8101fc21dda4f9ff9acd40e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 12 11:42:00 2026 +0800
+
+    Fix Staff Page -Availability Management function and UI
+
+[33mcommit cf58eb14ac4c7daaa006a8faa2e5401914724114[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 12 10:34:55 2026 +0800
+
+     Fix admin Navbar UI
+
+[33mcommit 47bcb000b5160e0102bcf26fbeb94fc54c1d987d[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 12 09:23:53 2026 +0800
+
+     Added Walk-in's Booking function and Manual Information input
+
+[33mcommit e468b129fff6607760e3aaf166b636b7028abd5f[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 12 08:13:47 2026 +0800
+
+     Added custom App icon and Site favicon
+
+[33mcommit f40220b69990a823da7c876f7b85be23ed8ca73f[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 12 08:00:44 2026 +0800
+
+     Add readme for Project Deploment Guide
+
+[33mcommit 86bba3f91cf0b96ff78c98f27ebffd9f559e62b5[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 12 07:54:54 2026 +0800
+
+     Migration of Mocked Data to MYSQL db
+
+[33mcommit eba4d77cd9d6275ef7abdeb479cc03133508e124[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Fri Jan 9 15:57:12 2026 +0800
+
+    Fix Admin Dashboard visibility and Staff Portal UI issues
+
+[33mcommit a95d1fc7bb946b2cdcb394efc8b4bf9b4d89eb7c[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 5 11:05:27 2026 +0800
+
+    Switch to HashRouting for robust GitHub Pages support
+
+[33mcommit ad2e6a9312787d25ea3332e0ac7457b75e96d8e3[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 5 11:00:37 2026 +0800
+
+    Fix routing 404 issue on GitHub Pages
+
+[33mcommit 5da9121f276934b26f13ade7fd75ff9df6c1bc8b[m
+Author: Diether Ocampo <cr.diether17@gmail.com>
+Date:   Mon Jan 5 10:53:02 2026 +0800
+
+    Fix UI colors and configure GitHub Pages deployment
+
+[33mcommit 309301e7da4d168b9e3413b806ca7c9718bcfb3c[m
+Author: Diether F. Ocampo <crt.diether17@gmail.com>
+Date:   Fri Jan 2 11:00:52 2026 +0800
+
+    First commit

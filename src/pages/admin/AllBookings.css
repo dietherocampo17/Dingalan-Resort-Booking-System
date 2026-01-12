@@ -13,6 +13,7 @@
     font-size: 1.75rem;
     font-weight: 700;
     letter-spacing: -0.01em;
+    color: white !important;
 }
 
 .page-header p {

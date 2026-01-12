@@ -12,6 +12,7 @@ export interface User {
   createdAt: string;
   status?: 'active' | 'inactive';
   favorites?: string[]; // Array of resort IDs
+  password?: string;
 }
 
 // Resort types

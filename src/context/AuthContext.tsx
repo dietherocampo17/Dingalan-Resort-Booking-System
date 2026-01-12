@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { User, UserRole } from '../types';
+import { dataService } from '../services/MockDataService';
 
 interface AuthContextType {
     user: User | null;
@@ -70,13 +71,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             return userData;
         }
 
-        // Check registered users
-        const users = JSON.parse(localStorage.getItem('resort_users') || '[]');
-        const found = users.find((u: User & { password: string }) =>
+        // Check registered users via dataService to ensure we share the same storage
+        const users = dataService.getUsers();
+        // Since User type now has optional password, we can check it
+        const found = users.find(u =>
             u.email.toLowerCase() === email.toLowerCase() && u.password === password
         );
 
         if (found) {
+            // Remove password from session state
             const { password: _, ...userData } = found;
             setUser(userData);
             localStorage.setItem('resort_user', JSON.stringify(userData));
@@ -109,8 +112,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
             favorites: []
         };
 
-        users.push(newUser);
-        localStorage.setItem('resort_users', JSON.stringify(users));
+        // Use dataService to save which handles the storage key
+        dataService.saveUser(newUser);
 
         const { password: _, ...userData } = newUser;
         setUser(userData);
@@ -139,12 +142,11 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setUser(updatedUser);
         localStorage.setItem('resort_user', JSON.stringify(updatedUser));
 
-        // Update in "database" (localStorage resort_users)
-        const users = JSON.parse(localStorage.getItem('resort_users') || '[]');
-        const idx = users.findIndex((u: User) => u.id === user.id);
-        if (idx >= 0) {
-            users[idx] = { ...users[idx], ...data };
-            localStorage.setItem('resort_users', JSON.stringify(users));
+        // Update in "database" (MockDataService)
+        const dbUser = dataService.getUser(user.id);
+        if (dbUser) {
+            const userToSave = { ...dbUser, ...data };
+            dataService.saveUser(userToSave);
         }
     };
 
